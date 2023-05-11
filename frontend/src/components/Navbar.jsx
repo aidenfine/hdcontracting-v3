@@ -36,7 +36,6 @@ const Navbar = ({
             <MenuIcon />
           </IconButton>
           <FlexBetween
-            backgroundColor="#FFFFFF"
             borderRadius="9px"
             gap="3rem"
             p="0.1rem 1.5rem"

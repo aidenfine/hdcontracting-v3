@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import FlexBetween from './FlexBetween';
 import { CalendarTodayOutlined, ChevronLeft, ChevronRightOutlined, HomeOutlined, ReceiptOutlined, WorkOutlineOutlined } from '@mui/icons-material';
+import { blue, deepPurple, grey, yellow } from '@mui/material/colors';
 
 const navItems = [
     {
@@ -63,8 +64,8 @@ const Sidebar = ({
                     <Box m="1.5rem 2rem 2rem 3rem">
                         <FlexBetween> {/* ADD COLOR TO THIS LATER  */}
                             <Box display="flex" alignItems="center" gap="0.5rem">
-                                <Typography variant='h6' color="black" fontWeight="bold">
-                                    HD-Contracting
+                                <Typography variant='h6' color="#32475C" fontWeight="bold">
+                                    hd-contracting
                                 </Typography>
                             </Box>
                             {!isNonMobile && (
@@ -78,7 +79,7 @@ const Sidebar = ({
                         {navItems.map(({ text, icon }) =>{
                             if (!icon){
                                 return (
-                                    <Typography key={text} sx={{ m: "2.5rem 0 1rem 3rem" }}>
+                                    <Typography key={text} sx={{ m: "2.5rem 0 1rem 3rem" }} color="#000000" >
                                         {text}
                                     </Typography>
                                 );
@@ -89,14 +90,14 @@ const Sidebar = ({
                                     <ListItemButton onClick={()=> { navigate(`/${lowerCaseText}`);
                                     setActive(lowerCaseText);}}
                                     sx={{
-                                        backgroundColor: active === lowerCaseText ? theme.palette.secondary[300] : "transparent",
-                                        color: active === lowerCaseText ? theme.palette.primary[600] : theme.palette.secondary[100]
+                                        backgroundColor: active === lowerCaseText ? "rgba(102, 108, 255, 0.12)" : "transparent",
+                                        color: active === lowerCaseText ? "#696CFF" : "#32475C"
                                     }}
                                     >
                                         <ListItemIcon
                                         sx={{
                                             ml: "2rem",
-                                            color: active === lowerCaseText ? theme.palette.primary[600] : theme.palette.secondary[200]
+                                            color: active === lowerCaseText ? "#696CFF" : "#32475C"
                                         }}
                                         >
                                             {icon}

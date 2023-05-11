@@ -10,24 +10,28 @@ import generalRoutes from './routes/general.js'
 import managementRoutes from './routes/management.js'
 import salesRoutes from './routes/sales.js'
 
+// test data import
+import User from './models/User.js'
+import { dataUser } from './data/index.js'
+
 /* ------------------------------------------- */
 
 // config 
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(helmet);
+app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
-app.use(bodyParser.json);
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 // Routes
-app.use("/client", clientRoutes ); // change to customers later??
-app.use("/general", generalRoutes );
-app.use("/management", managementRoutes);
-app.use("/sales", salesRoutes);
+app.use("/api/client", clientRoutes ); // change to customers later??
+app.use("/api/general", generalRoutes );
+app.use("/api/management", managementRoutes);
+app.use("/api/sales", salesRoutes);
 
 // database
 const PORT = process.env.PORT || 9000;
@@ -36,4 +40,6 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,
 }).then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    // User.insertMany(dataUser)
+
 }).catch((error) => console.log(`${error} did not connect`));
