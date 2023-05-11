@@ -22,6 +22,7 @@ const Layout = () => {
       bgcolor="F5F5F9"
     >
       <Sidebar
+        user={data || {}}
         isNonMobile={isNonMobile}
         drawerWidth="250px"
         isSidebarOpen={isSidebarOpen}
