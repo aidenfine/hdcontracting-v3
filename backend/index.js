@@ -89,6 +89,22 @@ app.post("/api/login", async(req, res)=>{
     res.json({status: "error", error: "wrong password"});
 })
 
+// USER DATA 
+
+app.post("/api/userData", async(req, res)=>{
+    const {token}= req.body;
+    try{
+        const user = jwt.verify(token, JWT_SECRET);
+        const userEmail = user.email;
+        User.findOne({ email: userEmail }).then((data)=>{
+            res.send({status: "ok", data:"data"});
+        }).catch((error)=>{
+            res.send( {status:"error", data: "error"});
+        })
+    } catch(error){}
+
+})
+
 
 
 
