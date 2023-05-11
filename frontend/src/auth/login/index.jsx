@@ -13,6 +13,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
 const theme = createTheme();
 export default function Login(){
   const handleSubmit = (event) => {
@@ -22,7 +35,28 @@ export default function Login(){
       email: data.get('email'),
       password: data.get('password'),
     });
-  };
+    const email = data.get('email');
+    const password = data.get('password');
+
+      fetch('http://localhost:5001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userLogined")
+      })
+
+  }
+
+
    return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -86,7 +120,6 @@ export default function Login(){
                 type="submit"
                 fullWidth
                 variant="contained"
-                backgroundColor="#696CFF"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
@@ -97,7 +130,13 @@ export default function Login(){
                     Forgot password?
                   </Link>
                 </Grid>
+                <Grid item>
+                  <Link href="request-access" variant="body2">
+                    {"Need an account? Request Access"}
+                  </Link>
+                </Grid>
               </Grid>
+              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>

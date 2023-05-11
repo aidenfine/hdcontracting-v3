@@ -4,6 +4,7 @@ import { Dashboard } from "scenes/dashboard";
 import Layout from "scenes/layout";
 import theme from '../../frontend/src/theme'
 import Login from './auth/login'
+import RequestAccess from "auth/requestAccess";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <ThemeProvider theme={theme} >
         <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/request-access" element={<RequestAccess />} />
           <Route element={<Layout />}>
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
