@@ -33,7 +33,7 @@ export default function RequestAccess() {
     const name = `${fname} ${lname}`;
   
     try {
-      const response = await fetch(`${API_URL}/api/request-access`, {
+      const response = await fetch(`${API_URL}api/request-access`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
