@@ -1,26 +1,21 @@
 import React from "react";
 import {
-  LightModeOutlined,
   Menu as MenuIcon,
   Search,
   SettingsOutlined,
-  ArrowDropDownOutlined,
 } from "@mui/icons-material";
 import FlexBetween from "./FlexBetween";
-import profileImage from "assets/img.jpeg";
 import {
   AppBar,
   IconButton,
   InputBase,
   Toolbar,
-  useTheme,
 } from "@mui/material";
 
 const Navbar = ({
   isSidebarOpen,
   setIsSidebarOpen,
 })=>{
-  const theme = useTheme();
   return (
     <AppBar
       sx={{
