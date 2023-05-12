@@ -1,14 +1,14 @@
 import React from "react";
 import {
   Menu as MenuIcon,
-  Search,
+  SearchOutlined,
   SettingsOutlined,
 } from "@mui/icons-material";
 import FlexBetween from "./FlexBetween";
 import {
   AppBar,
   IconButton,
-  InputBase,
+  TextField,
   Toolbar,
 } from "@mui/material";
 
@@ -16,6 +16,7 @@ const Navbar = ({
   isSidebarOpen,
   setIsSidebarOpen,
 })=>{
+
   return (
     <AppBar
       sx={{
@@ -26,19 +27,27 @@ const Navbar = ({
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/*  LEFT SIDE OF PAGE  */}
-        <FlexBetween>
+        <FlexBetween flexGrow={1}>
           <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
             <MenuIcon />
           </IconButton>
           <FlexBetween
-            borderRadius="9px"
+            flexGrow={1}
+            borderRadius="100px"
             gap="3rem"
             p="0.1rem 1.5rem"
           >
-            <InputBase fullWidth placeholder="Search..." />
-            <IconButton>
-              <Search />
-            </IconButton>
+            <TextField variant="outlined" 
+             fullWidth 
+              placeholder="Search..."
+             InputProps={{
+              endAdornment: (
+                <IconButton>
+                  <SearchOutlined />
+                </IconButton>
+              ),
+             }}
+             />
           </FlexBetween>
         </FlexBetween>
         {/* RIGHT SIDE */}
