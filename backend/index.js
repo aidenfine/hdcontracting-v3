@@ -45,7 +45,7 @@ app.use("/api/sales", salesRoutes);
 const user = mongoose.model('User');
 
 app.post('/api/request-access', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, isVerifed } = req.body;
 
   const encryptedPassword = await bcrypt.hashSync(password, 10);
   try {
@@ -58,6 +58,7 @@ app.post('/api/request-access', async (req, res) => {
       name,
       email,
       password: encryptedPassword,
+      isVerifed,
     });
     res.send({ status: 'ok', user: newUser });
   } catch (error) {

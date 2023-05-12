@@ -54,6 +54,7 @@ export default function Login(){
         console.log(data, "userLogined");
         if(data.status === "ok"){
           window.localStorage.setItem("token", data.data);
+          window.localStorage.setItem("isLoggedIn", true);
           window.location.href ="/dashboard";
         }
       })
@@ -130,7 +131,7 @@ export default function Login(){
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="/forgot-password" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
