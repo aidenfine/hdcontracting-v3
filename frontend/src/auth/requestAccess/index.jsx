@@ -12,12 +12,20 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import SuccessSnackbar from 'components/SuccessSnackbar';
+import { Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert'
 
 const theme = createTheme();
 
+
 export default function RequestAccess() {
 
-    
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+
+  const handleSnackbarClose = () => {
+    setShowSnackbar(false);
+  }
 
   const handleSubmit = async (event) => {
 
@@ -51,8 +59,13 @@ export default function RequestAccess() {
       console.log(responseData);
       
       if (response.ok) {
+        // open alert/snackbar
+        setShowSnackbar(true);
         // handle success case
-        console.log('Request successful!');
+        setTimeout(function(){
+          window.location.replace('/login');
+        }, 5000);
+
       } else {
         // handle error case
         console.error('Request failed:', responseData);
@@ -138,11 +151,12 @@ export default function RequestAccess() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Request Access
             </Button>
+            <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"Request success you will be redirected in 5 seconds"}/>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -153,3 +167,23 @@ export default function RequestAccess() {
     </ThemeProvider>
   );
 }
+
+
+/* 
+ <Snackbar
+            open={showSnackbar}
+            autoHideDuration={3000}
+            onClose={handleSnackbarClose}
+            >
+              <MuiAlert
+              elevation={6}
+              variant="filled"
+              severity="success"
+              onClose={handleSnackbarClose}
+              >
+                Request success you will now be redirected 
+              </MuiAlert>
+            </Snackbar>
+
+
+*/

@@ -45,7 +45,7 @@ export default function Login(){
     const email = data.get('email');
     const password = data.get('password');
 
-      fetch(`${API_URL}/api/login`, {
+      fetch(`${API_URL}api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
