@@ -13,8 +13,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SuccessSnackbar from 'components/SuccessSnackbar';
-import { Snackbar } from '@mui/material';
-import MuiAlert from '@mui/material/Alert'
 
 const theme = createTheme();
 
@@ -166,23 +164,3 @@ export default function RequestAccess() {
     </ThemeProvider>
   );
 }
-
-
-/* 
- <Snackbar
-            open={showSnackbar}
-            autoHideDuration={3000}
-            onClose={handleSnackbarClose}
-            >
-              <MuiAlert
-              elevation={6}
-              variant="filled"
-              severity="success"
-              onClose={handleSnackbarClose}
-              >
-                Request success you will now be redirected 
-              </MuiAlert>
-            </Snackbar>
-
-
-*/

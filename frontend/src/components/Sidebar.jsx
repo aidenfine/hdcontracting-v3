@@ -2,7 +2,7 @@ import { Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, 
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import FlexBetween from './FlexBetween';
-import { CalendarTodayOutlined, ChevronLeft, ChevronRightOutlined, HomeOutlined, ReceiptOutlined, WorkOutlineOutlined } from '@mui/icons-material';
+import { CalendarTodayOutlined, ChevronLeft, ChevronRightOutlined, HomeOutlined, PeopleAltOutlined, ReceiptOutlined, WorkOutlineOutlined } from '@mui/icons-material';
 
 const navItems = [
     {
@@ -17,13 +17,22 @@ const navItems = [
         text: "Jobs",
         icon: <WorkOutlineOutlined />
     },
+
+    {
+        text: "Calendar",
+        icon: <CalendarTodayOutlined />
+    },
+    {
+        text: "Admin",
+        icon: null,
+    },
     {
         text: "Invoices",
         icon: <ReceiptOutlined />
     },
     {
-        text: "Calendar",
-        icon: <CalendarTodayOutlined />
+        text: "Employees",
+        icon: <PeopleAltOutlined />
     },
 ]
 const Sidebar = ({

@@ -37,24 +37,29 @@ const Navbar = ({
             gap="3rem"
             p="0.1rem 1.5rem"
           >
-            <TextField variant="outlined" 
-             fullWidth 
-              placeholder="Search..."
+            <TextField 
+            variant="outlined" 
+            background="#FFFFFFF"
+            sx={{backgroundColor:"white", boxShadow: 2, borderRadius: "10px", "& fieldset": { border: 'none'}}}
+            fullWidth 
+             placeholder="Search..."
              InputProps={{
-              endAdornment: (
+              startAdornment: (
                 <IconButton>
                   <SearchOutlined />
                 </IconButton>
               ),
+              endAdornment:(
+              <IconButton>
+                <SettingsOutlined sx={{ fontSize: "25px" }} />
+              </IconButton>
+              )
              }}
              />
           </FlexBetween>
         </FlexBetween>
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
-          <IconButton>
-            <SettingsOutlined sx={{ fontSize: "25px" }} />
-          </IconButton>
         </FlexBetween>
       </Toolbar>
     </AppBar>
