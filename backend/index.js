@@ -20,8 +20,6 @@ import { dataUser } from './data/index.js'
 
 /* ------------------------------------------- */
 
-const JWT_SECRET = `${process.env.JWT_SECRET}`;
-
 
 // config 
 dotenv.config();
@@ -33,6 +31,11 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+
+
+// ENV VARS 
+const JWT_SECRET = process.env.JWT_SECRET;
+const APP_URL = process.env.APP_URL
 
 // Routes
 app.use("/api/client", clientRoutes ); // change to customers later??
@@ -106,6 +109,47 @@ app.post("/api/userData", async(req, res)=>{
 
 })
 
+
+
+// FORGOT PASSWORD 
+app.post("/forgot-password", async(req, res)=>{
+    const {email}=req.body;
+    try{
+        const oldUser = await User.findOne({ email })
+        if(!oldUser){
+            return res.json({ status: "User Does Not exist" });
+        }
+    const secret = JWT_SECRET + oldUser.password;
+    const token = jwt.sign({ email: oldUser.email, id: oldUser._id },secret,{
+        expiresIn: "5m", 
+    });
+    const link =`${APP_URL}/reset-password/${oldUser._id}/${token}`;
+    console.log(link);
+
+    }catch (error){
+
+    }
+});
+
+
+
+app.get('/reset-password/:id/:token', async (req, res)=>{
+    const { id, token } = req.params;
+    console.log(req.params);
+    const oldUser = await User.findOne({ _id:id })
+    if(!oldUser){
+        return res.json({ status: "User Not Exists!!" });
+    }
+    const secret = JWT_SECRET + oldUser.password;
+    try {
+        const verify = jwt.verify(token, secret);
+        res.send("Verified")
+    } catch (error) {
+        res.send("Not Verified")
+    }
+
+    res.send("Done")
+});
 
 
 

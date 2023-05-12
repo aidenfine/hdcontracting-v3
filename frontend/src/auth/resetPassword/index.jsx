@@ -14,12 +14,28 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 export default function ForgotPassword() {
+  const API_URL = process.env.REACT_APP_BASE_URL;
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-        });
+        const email = data.get("email")
+        fetch(`${API_URL}/forgot-password`,{
+            method: "POST",
+            crossDomain: true,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify({
+                email,
+            })
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data, "ok")
+        })
       };
     
       return (

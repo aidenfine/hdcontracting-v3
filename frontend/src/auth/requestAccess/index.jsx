@@ -20,6 +20,9 @@ export default function RequestAccess() {
     
 
   const handleSubmit = async (event) => {
+
+    const API_URL = process.env.REACT_APP_BASE_URL
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
@@ -28,10 +31,9 @@ export default function RequestAccess() {
     const lname = data.get('lastName');
     const role = "user"
     const name = `${fname} ${lname}`;
-    console.log(name);
   
     try {
-      const response = await fetch('http://localhost:5001/api/request-access', {
+      const response = await fetch(`${API_URL}/api/request-access`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -26,8 +27,14 @@ function Copyright(props) {
   );
 }
 
+
 const theme = createTheme();
 export default function Login(){
+
+  const API_URL = process.env.REACT_APP_BASE_URL;
+  console.log(API_URL);
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,7 +45,7 @@ export default function Login(){
     const email = data.get('email');
     const password = data.get('password');
 
-      fetch('http://localhost:5001/api/login', {
+      fetch(`${API_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
