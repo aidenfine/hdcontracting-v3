@@ -7,15 +7,22 @@ import {
 import FlexBetween from "./FlexBetween";
 import {
   AppBar,
+  Button,
   IconButton,
   TextField,
   Toolbar,
 } from "@mui/material";
 
+
 const Navbar = ({
   isSidebarOpen,
   setIsSidebarOpen,
 })=>{
+
+  function logout(){
+    window.localStorage.clear();
+    window.location.href="/";
+  }
 
   return (
     <AppBar
@@ -58,6 +65,7 @@ const Navbar = ({
              />
           </FlexBetween>
         </FlexBetween>
+        <Button variant="outlined" onClick={logout} color="error">Sign out</Button>
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
         </FlexBetween>
