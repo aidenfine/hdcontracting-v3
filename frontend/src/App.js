@@ -27,11 +27,11 @@ function App() {
           <Route path="/request-access" element={<RequestAccess />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route element={<Layout />}>
-            <Route path="/dashboard" element={<ProtectedRoutes />} /> {/* Wrap ProtectedRoutes */}
-            <Route path="/jobs" element={<ProtectedRoutes />} /> {/* Wrap ProtectedRoutes */}
-            <Route path="/invoices" element={<ProtectedRoutes />} /> {/* Wrap ProtectedRoutes */}
-            <Route path="/calendar" element={<ProtectedRoutes />} /> {/* Wrap ProtectedRoutes */}
-            <Route path="/employees" element={<ProtectedRoutes />} /> {/* Wrap ProtectedRoutes */}
+            <Route path="/dashboard" element={<Dashboard />} /> {/* Wrap ProtectedRoutes */}
+            <Route path="/jobs" element={<Jobs />} /> {/* Wrap ProtectedRoutes */}
+            <Route path="/invoices" element={<Invoices />} /> {/* Wrap ProtectedRoutes */}
+            <Route path="/calendar" element={<Calendar />} /> {/* Wrap ProtectedRoutes */}
+            <Route path="/employees" element={<Employees />} /> {/* Wrap ProtectedRoutes */}
           </Route>
         </Routes>
       </ThemeProvider>
