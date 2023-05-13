@@ -34,6 +34,7 @@ export default function ForgotPassword() {
         })
         .then((res) => res.json())
         .then((data) => {
+          
         })
       };
     
