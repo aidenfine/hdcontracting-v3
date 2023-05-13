@@ -3,7 +3,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
 
-export default function ErrorSnackbar({ showSnackbar, handleSnackbarClose, message} ) {
+export default function InfoSnackbar({ showSnackbar, handleSnackbarClose, message} ) {
     return (
         <Snackbar
         open={showSnackbar}
@@ -13,7 +13,7 @@ export default function ErrorSnackbar({ showSnackbar, handleSnackbarClose, messa
           <Alert
           elevation={6}
           variant="filled"
-          severity="error"
+          severity="info"
           onClose={handleSnackbarClose}
           >
             {message}
