@@ -84,7 +84,7 @@ app.post("/api/login", async(req, res)=>{
     const user = await User.findOne({ email });
 
     if(!user){
-        return res.json({ error: "User not found"});
+        return res.json({ error: "User does not exists"});
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if(passwordMatch){
@@ -96,7 +96,7 @@ app.post("/api/login", async(req, res)=>{
             return res.json({ error: "error" });
         }
     }
-    res.json({status: "error", error: "wrong password"});
+    res.json({status: "error", error: "Incorrect password"});
 })
 
 // USER DATA 
