@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import isAuth from "state/isAuth";
 
 import { useState } from "react";
-import { formatDate } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -11,12 +10,9 @@ import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import {
   Box,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
 } from "@mui/material";
 import Header from "components/Header";
+import '../Calendar/styles.css';
 
 
 export const Calendar = () => {
@@ -61,40 +57,6 @@ export const Calendar = () => {
 
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
-        <Box
-          flex="1 1 20%"
-          backgroundColor="#FFFFFF"
-          p="15px"
-          borderRadius="4px"
-        >
-          <Typography variant="h5">Events</Typography>
-          <List>
-            {currentEvents.map((event) => (
-              <ListItem
-                key={event.id}
-                sx={{
-                  backgroundColor:"rgba(102, 108, 255, 0.25)",
-                  margin: "10px 0",
-                  borderRadius: "2px",
-                }}
-              >
-                <ListItemText
-                  primary={event.title}
-                  secondary={
-                    <Typography>
-                      {formatDate(event.start, {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-
         {/* CALENDAR */}
         <Box flex="1 1 100%" ml="15px">
           <FullCalendar
@@ -112,6 +74,9 @@ export const Calendar = () => {
             }}
             initialView="dayGridMonth"
             editable={true}
+            longPressDelay={500}
+            eventLongPressDelay={1000}
+            selectLongPressDelay={500}
             selectable={true}
             eventTextColor="#696CFF"
             eventBackgroundColor="rgba(102, 108, 255, 0.13)"

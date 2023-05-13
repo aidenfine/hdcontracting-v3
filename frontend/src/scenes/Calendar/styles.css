@@ -1,0 +1,19 @@
+/* Change the background color of the header
+.fc-toolbar {
+  background-color: #f0f0f0;
+} */
+
+/* Change the text color of the header */
+/* .fc-toolbar .fc-toolbar-title {
+  color: #333;
+} */
+
+/* Change the background color of the buttons in the header */
+.fc-toolbar .fc-button {
+  background-color: rgba(102, 108, 255, 0.12);
+}
+
+/* Change the text color of the buttons in the header */
+.fc-toolbar .fc-button {
+  color: #696cff;
+}
