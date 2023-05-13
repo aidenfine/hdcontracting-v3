@@ -61,6 +61,7 @@ export const Calendar = () => {
             initialView="dayGridMonth"
             editable={true}
             selectable={true}
+            longPressDelay={0}
             eventTextColor="#696CFF"
             eventBackgroundColor="rgba(102, 108, 255, 0.13)"
             eventBorderColor="rgba(102, 108, 255, 0.01)"
