@@ -10,8 +10,6 @@ import { Jobs } from "scenes/jobs";
 import { Invoices } from "scenes/Invoices";
 import { Calendar } from "scenes/Calendar";
 import { Employees } from "scenes/employees";
-import ProtectedRoutes from "components/ProtectedRoutes";
-
 function App() {
   
   if (!window.localStorage.getItem("isLoggedIn")) {
