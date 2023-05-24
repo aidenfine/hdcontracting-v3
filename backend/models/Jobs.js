@@ -48,9 +48,11 @@ const JobsSchema = new mongoose.Schema(
         phone:{
             type: String
         },
+        owner: {
+            type: String
+        },
         scheduledDate:{
-            // NOT SURE YET 
-            type: String // CHANGE THIS LATER 
+            type: String 
         },
         assignedTo:{
             type: [

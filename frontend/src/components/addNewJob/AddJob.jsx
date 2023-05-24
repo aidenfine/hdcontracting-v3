@@ -25,6 +25,8 @@ const theme = createTheme();
 
 
 export default function NewJob() {
+    const API_URL = process.env.REACT_APP_BASE_URL
+    console.log(API_URL);
 
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [comp, setComp] = React.useState(false);
@@ -59,21 +61,55 @@ export default function NewJob() {
   }
 
   const handleSubmit = async (event) => {
-
-    const API_URL = process.env.REACT_APP_BASE_URL
-
+    const token = localStorage.getItem('token');
+    console.log(token)
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // const email = data.get('email');
-    // const password = data.get('password');
-    // const fname = data.get('firstName');
-    // const lname = data.get('lastName');
-    // const role = "user"
-    // const name = `${fname} ${lname}`;
-    
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+  
 
-    // CALL API HERE
+    const jobData ={
+        jobNumber: formData.get('jobNumber'),
+        phone: formData.get('phone'),
+        owner: formData.get('owner'),
+        lockBox: formData.get('lockBox'),
+        invoiceNumber: formData.get('invoiceNumber'),
+        hoa: formData.get('hoa'),
+        estAmount: formData.get('estAmount'),
+        estNumber: formData.get('estNumber'),
+        email: formData.get('email'),
+        description: formData.get('description'),
+        custPO: formData.get('custPO'),
+        comp: formData.get('comp') === 'true',
+        city: formData.get('city'),
+        assignedTo: formData.get('assignedTo'),
+        address: formData.get('address'),
+    }
 
+    try {
+        const response = await fetch(`${API_URL}/api/jobs/addJob`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jobData),
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data); // Optional: Handle the API response
+            // Reset the form if needed
+            form.reset();
+          } else {
+            console.error('Request failed with status:', response.status);
+            // Handle the error
+          }
+        } catch (error) {
+          console.error(error);
+    }
+  
+    console.log(formData);
+    // API CALL
   };
   
 
@@ -99,6 +135,7 @@ export default function NewJob() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                 <TextField
+                  name="jobNumber"
                   required
                   fullWidth
                   id="jobNumber"
@@ -123,6 +160,7 @@ export default function NewJob() {
               <InputLabel id="comp">Comp?</InputLabel>
                 <Select
                  value={comp}
+                 name="comp"
                  label="Comp?"
                  onChange={handleCompChange}
                 >
@@ -231,20 +269,13 @@ export default function NewJob() {
                   id="email"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  name="phone"
-                  label="Phone Number"
-                  id="Description"
-                />
-              </Grid>
               <Grid item xs={12}>
               <InputLabel id="comp">Assign To</InputLabel>
                 <Select
                 fullWidth
                  value={assignedTo}
                  label="Assign To"
+                 name="assignedTo"
                  onChange={handleAssignedToChange}
                 >
                     {users.map((user) => (
@@ -260,16 +291,9 @@ export default function NewJob() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Request Access
+              Add Jobs
             </Button>
-            <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"Request success you will be redirected in 5 seconds"}/>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
+            <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"You have Added a job"}/>
           </Box>
         </Box>
       </Container>
