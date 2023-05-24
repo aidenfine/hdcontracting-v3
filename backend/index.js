@@ -24,6 +24,7 @@ import { requestAccess } from './apis/requestAccess/requestAccess.js'
 import { forgotPassword } from './apis/forgotPasswordApis/forgotPassword.js'
 import { getForgotPassword } from './apis/forgotPasswordApis/getForgotPassword.js'
 import { postForgotPassword } from './apis/forgotPasswordApis/postForgotPassword.js'
+import { getAllUsers } from './apis/userApis/getAllUsers.js'
 
 
 /* ------------------------------------------- */
@@ -62,7 +63,10 @@ app.post('/api/request-access', requestAccess);
 app.post("/api/login", loginUser);
 
 // USER DATA 
-app.post("/api/userData", userData)
+app.post("/api/userData", userData);
+
+// GET ALL USERS 
+app.get("/api/user/getUsers", getAllUsers);
 
 
 
