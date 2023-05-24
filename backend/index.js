@@ -5,19 +5,10 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
 import morgan from 'morgan'
-import clientRoutes from './routes/client.js'
-import generalRoutes from './routes/general.js'
-import managementRoutes from './routes/management.js'
-import salesRoutes from './routes/sales.js'
-import bcrypt from 'bcrypt';
 import  jwt  from 'jsonwebtoken'
-import nodemailer from 'nodemailer'
-import sendEmail from './email/sendMail.js'
 
 
 // imports 
-import User from './models/User.js'
-import Jobs from './models/Jobs.js'
 import { loginUser } from './apis/userApis/loginUser.js'
 import { userData } from './apis/userApis/userData.js'
 import { requestAccess } from './apis/requestAccess/requestAccess.js'
@@ -53,10 +44,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 
 // Routes
-app.use("/api/client", clientRoutes ); // change to customers later??
-app.use("/api/general", generalRoutes );
-app.use("/api/management", managementRoutes);
-app.use("/api/sales", salesRoutes);
 
 
 

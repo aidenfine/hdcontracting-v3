@@ -1,3 +1,4 @@
+import { Decimal128 } from 'mongodb';
 import mongoose from 'mongoose';
 
 const JobsSchema = new mongoose.Schema(
@@ -43,7 +44,7 @@ const JobsSchema = new mongoose.Schema(
             type: String
         },
         estMoney:{
-            type: Float32Array
+            type: Decimal128
         },
         phone:{
             type: String
