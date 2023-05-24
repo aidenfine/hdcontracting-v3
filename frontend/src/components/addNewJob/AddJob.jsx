@@ -90,7 +90,10 @@ export default function NewJob() {
         comp: formData.get('comp') === 'true',
         city: formData.get('city'),
         assignedTo: assignedTo,
-        address: formData.get('address'),
+        address: {
+          city: formData.get('city'),
+          street: formData.get('street'),
+        },
     }
     console.log(assignedTo)
     
@@ -182,10 +185,9 @@ export default function NewJob() {
                 <TextField
                   required
                   fullWidth
-                  id="address"
-                  label="Address"
-                  name="address"
-                  autoComplete="email"
+                  id="street"
+                  label="Street"
+                  name="street"
                 />
               </Grid>
 
