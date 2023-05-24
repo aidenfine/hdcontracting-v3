@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import isAuth from "state/isAuth";
 
-import { Box, Modal } from "@mui/material";
+import { Box } from "@mui/material";
 import Header from "components/Header";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
