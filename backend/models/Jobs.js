@@ -43,7 +43,7 @@ const JobsSchema = new mongoose.Schema(
             type: String
         },
         estMoney:{
-            type: String
+            type: Float32Array
         },
         phone:{
             type: String

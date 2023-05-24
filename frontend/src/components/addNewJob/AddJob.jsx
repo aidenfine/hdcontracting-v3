@@ -21,6 +21,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 
+
 const theme = createTheme();
 
 
@@ -31,7 +32,7 @@ export default function NewJob() {
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [comp, setComp] = React.useState(false);
   const [dateTime, setDateTime] = React.useState(new Date('2014-08-18T21:11:54'));
-  const [assignedTo, setAssignedTo] = React.useState('');
+  const [assignedTo, setAssignedTo] = React.useState([]);
   const [users, setUsers] = useState([]);
 
 
@@ -57,8 +58,14 @@ export default function NewJob() {
     setComp(event.target.value);
   }
   const handleAssignedToChange = (event) => {
-    setAssignedTo(event.target.value)
-  }
+    const {
+      target: { value },
+    } = event;
+    setAssignedTo(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
 
   const handleSubmit = async (event) => {
     const token = localStorage.getItem('token');
@@ -82,9 +89,11 @@ export default function NewJob() {
         custPO: formData.get('custPO'),
         comp: formData.get('comp') === 'true',
         city: formData.get('city'),
-        assignedTo: formData.get('assignedTo'),
+        assignedTo: assignedTo,
         address: formData.get('address'),
     }
+    console.log(assignedTo)
+    
 
     try {
         const response = await fetch(`${API_URL}/api/jobs/addJob`, {
@@ -221,11 +230,6 @@ export default function NewJob() {
                   name="estNumber"
                   label="Est Number"
                   id="estNum"
-                  inputProps={{
-                    startAdornment: (
-                        <InputAdornment position='start'>$</InputAdornment>
-                    )
-                  }}
                   
                 />
               </Grid>
@@ -235,6 +239,14 @@ export default function NewJob() {
                   name="estAmount"
                   label="Est Amount"
                   id="estAmount"
+                  type='number'
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        $
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -243,6 +255,7 @@ export default function NewJob() {
                   name="custPO"
                   label="Cust PO/WO"
                   id="custPO"
+                  type='number'
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -272,7 +285,8 @@ export default function NewJob() {
               <Grid item xs={12}>
               <InputLabel id="comp">Assign To</InputLabel>
                 <Select
-                fullWidth
+                 fullWidth
+                 multiple
                  value={assignedTo}
                  label="Assign To"
                  name="assignedTo"
