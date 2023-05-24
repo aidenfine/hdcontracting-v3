@@ -19,6 +19,7 @@ import { InputAdornment } from '@mui/material';
 import getAllUsers from 'api/getAllUsers';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import ErrorSnackbar from 'components/ErrorSnackbar';
 
 
 
@@ -73,6 +74,11 @@ export default function NewJob() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+
+    if (!form.checkValidity()){
+      setShowSnackbar(true);
+      return; 
+    }
   
 
     const jobData ={
@@ -96,6 +102,7 @@ export default function NewJob() {
         },
     }
     console.log(assignedTo)
+
     
 
     try {
@@ -172,6 +179,7 @@ export default function NewJob() {
               <InputLabel id="comp">Comp?</InputLabel>
                 <Select
                  value={comp}
+                 required
                  name="comp"
                  label="Comp?"
                  onChange={handleCompChange}
@@ -276,7 +284,7 @@ export default function NewJob() {
                   id="Description"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   name="email"
@@ -312,6 +320,11 @@ export default function NewJob() {
             <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"You have Added a job"}/>
           </Box>
         </Box>
+        <ErrorSnackbar
+        message="Please fill out required Items"
+        showSnackbar={showSnackbar}
+        handleSnackbarClose={handleSnackbarClose}
+        />
       </Container>
     </ThemeProvider>
   )
