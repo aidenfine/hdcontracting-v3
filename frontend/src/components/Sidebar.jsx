@@ -1,9 +1,8 @@
-import { Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme } from '@mui/material';
+import { Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import FlexBetween from './FlexBetween';
-import { CalendarTodayOutlined, ChevronLeft, ChevronRightOutlined, HomeOutlined, ReceiptOutlined, WorkOutlineOutlined } from '@mui/icons-material';
-import { blue, deepPurple, grey, yellow } from '@mui/material/colors';
+import { CalendarTodayOutlined, ChevronLeft, ChevronRightOutlined, HomeOutlined, PeopleAltOutlined, ReceiptOutlined, WorkOutlineOutlined } from '@mui/icons-material';
 
 const navItems = [
     {
@@ -18,13 +17,22 @@ const navItems = [
         text: "Jobs",
         icon: <WorkOutlineOutlined />
     },
+
+    {
+        text: "Calendar",
+        icon: <CalendarTodayOutlined />
+    },
+    {
+        text: "Admin",
+        icon: null,
+    },
     {
         text: "Invoices",
         icon: <ReceiptOutlined />
     },
     {
-        text: "Calendar",
-        icon: <CalendarTodayOutlined />
+        text: "Employees",
+        icon: <PeopleAltOutlined />
     },
 ]
 const Sidebar = ({
@@ -40,14 +48,13 @@ const Sidebar = ({
     useEffect(()=> {
         setActive(pathname.substring(1));
     }, [pathname])
-    const theme = useTheme();
 
     return <Box component="nav">
         {isSidebarOpen && (
             <Drawer
             open={isSidebarOpen}
             onClose={()=> setIsSidebarOpen(false)}
-            variant='presistent'
+            variant='persistent'
             anchor='left'
             sx={{
                 width: drawerWidth,

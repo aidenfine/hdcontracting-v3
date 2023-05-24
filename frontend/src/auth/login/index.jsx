@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,9 +8,12 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ErrorSnackbar from 'components/ErrorSnackbar';
+import SuccessSnackbar from 'components/SuccessSnackbar';
+import { Navigate } from 'react-router-dom';
+import InfoSnackbar from 'components/InfoSnackbar';
 
 
 function Copyright(props) {
@@ -19,7 +21,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        HD-Contracting
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -31,17 +33,30 @@ function Copyright(props) {
 const theme = createTheme();
 export default function Login(){
 
+const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+const [snackbarMessage, setSnackbarMessage] = React.useState('');
+
+const [infoSnackbarOpen, setInfoSnackbarOpen] = React.useState(false);
+const [infoSnackbarMessage, setInfoSnackbarMessage] = React.useState('');
+
+const [successSnackbarOpen, setSuccessSnackbarOpen] = React.useState(false);
+const [successSnackbarMessage, setSuccessSnackbarMessage] = React.useState('');
+
+  // simple redirect if user is logged in but ends back onto login page 
+  React.useEffect(() => {
+    if (window.localStorage.isLoggedIn === 'true') {
+      setInfoSnackbarOpen(true);
+      setInfoSnackbarMessage('Please sign out before doing that');
+    }
+  }, []);
+
+
   const API_URL = process.env.REACT_APP_BASE_URL;
-  console.log(API_URL);
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
     const email = data.get('email');
     const password = data.get('password');
 
@@ -58,16 +73,34 @@ export default function Login(){
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "userLogined");
         if(data.status === "ok"){
+          setSuccessSnackbarOpen(true);
+          setSuccessSnackbarMessage("Success!");
           window.localStorage.setItem("token", data.data);
           window.localStorage.setItem("isLoggedIn", true);
           window.location.href ="/dashboard";
+        } else{
+          setSnackbarOpen(true)
+          setSnackbarMessage(`Error: ${data.error}`) 
         }
       })
-
   }
 
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleSuccessSnackbarClose = () => {
+    setSuccessSnackbarOpen(false);
+  }
+
+  const handleInfoSnackbarClose = () => {
+    setInfoSnackbarOpen(false);
+  }
+
+  if (window.localStorage.isLoggedIn === 'true') {
+    return (<Navigate to="/dashboard" replace />);
+  }
 
    return (
     <ThemeProvider theme={theme}>
@@ -97,9 +130,6 @@ export default function Login(){
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
@@ -147,6 +177,9 @@ export default function Login(){
                     {"Need an account? Request Access"}
                   </Link>
                 </Grid>
+                <ErrorSnackbar showSnackbar={snackbarOpen} handleSnackbarClose={handleSnackbarClose} message={snackbarMessage} />
+                <SuccessSnackbar showSnackbar={successSnackbarOpen} handleSnackbarClose={handleSuccessSnackbarClose} message={successSnackbarMessage} />
+                <InfoSnackbar showSnackbar={infoSnackbarOpen} handleSnackbarClose={handleInfoSnackbarClose} message={infoSnackbarMessage} />
               </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>
