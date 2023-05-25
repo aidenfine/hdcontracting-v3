@@ -51,6 +51,10 @@ export default function AddCustomer() {
           street,
           city,
           notes,
+          address: {
+            city,
+            street,
+          },
         }),
       });
       

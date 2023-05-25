@@ -1,53 +1,100 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import getAllCustomers from '../../api/getAllCustomers';
+import { Card, Grid } from '@mui/material';
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+  { field: 'name', headerName: 'Full name', width: 130 },
+  { field: 'email', headerName: 'Email', width: 200 },
+  { field: 'notes', headerName: 'Notes', width: 350},
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
+    field: 'subCustomers',
+    headerName: 'Sub Customers',
+    width: 150,
+    valueGetter: (params) => {
+      if(params.row.subCustomers.length === 0){
+        return <span style={{fontWeight: 300}}>None</span>
+      } else{
+        return JSON.stringify(params.row.subCustomers[0])
+      }
+    }
   },
   {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    field: 'street',
+    headerName: 'Street',
+    width: 100,
+    valueGetter: (params) => {
+      if(!params.row.address.street){
+        return ''
+      } else{
+        return params.row.address.street
+      }
+    }
+  },
+  {
+    field: 'city',
+    headerName: 'City',
+    width: 120,
+    valueGetter: (params) => {
+      if(!params.row.address.city){
+        return ''
+      } else{
+        return params.row.address.city
+      }
+    }
   },
 ];
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+
 
 export default function CustomersTable() {
+
+  const [rows, setRows] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchCustomers = async () => {
+      try{
+        const response = await getAllCustomers();
+        const data = response.data
+        setRows(data);
+      } catch (error) {
+        console.error("error", error)
+      }
+    };
+    fetchCustomers();
+  }, [])
+
+
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      sx={{
+        width: '600',
+        height: '700',
+            }}
+     
+     >
+      <Card
+      sx={{
+        width: '80%',
+        height: 'auto',
+      }}
+      >
       <DataGrid
         rows={rows}
         columns={columns}
+        getRowId={(row) => row._id}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
           },
         }}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[5, 10, 15, 20, 25, 30, 35]}
         checkboxSelection
       />
-    </div>
+      </Card>
+    </Grid>
   );
 }
