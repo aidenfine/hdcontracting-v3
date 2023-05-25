@@ -3,9 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -32,7 +29,7 @@ export default function NewJob() {
 
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [comp, setComp] = React.useState(false);
-  const [dateTime, setDateTime] = React.useState(new Date('2014-08-18T21:11:54'));
+  // const [dateTime, setDateTime] = React.useState(new Date('2014-08-18T21:11:54'));
   const [assignedTo, setAssignedTo] = React.useState([]);
   const [users, setUsers] = useState([]);
 
@@ -174,7 +171,7 @@ export default function NewJob() {
                   type="number"
                 />
               </Grid>
-
+              {/* TO DO REMOVE THIS COMP THIS SHOULD DEFAULT TO FALSE*/}
               <Grid item xs={12}>
               <InputLabel id="comp">Comp?</InputLabel>
                 <Select

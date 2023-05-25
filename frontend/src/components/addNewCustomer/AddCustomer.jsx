@@ -1,99 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SuccessSnackbar from 'components/SuccessSnackbar';
 import { PersonAdd } from '@mui/icons-material';
-import ErrorSnackbar from 'components/ErrorSnackbar';
-import { InputLabel, MenuItem, Select } from '@mui/material';
-import getAllCustomers from 'api/getAllCustomers';
-import { addCustomer } from 'api/addCustomer';
 
 const theme = createTheme();
 
-export default function AddCustomer() {
-  const [showSnackbar, setShowSnackbar] = useState(false);
-  const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [customers, setCustomers] = useState([]);
-  const [selectedSubCustomers, setSelectedSubCustomers] = useState([]);
 
-  useEffect(() => {
-    const fetchCustomers = async () => {
-      try {
-        const response = await getAllCustomers();
-        const data = response.data;
-        setCustomers(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchCustomers();
-  }, []);
+export default function AddCustomer() {
+
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
-  };
-
-  const handleErrorSnackbarClose = () => {
-    setShowErrorSnackbar(false);
-  };
-
-  const handleSubCustomerChange = (event) => {
-    const { value } = event.target;
-    setSelectedSubCustomers(value);
-  };
+  }
 
   const handleSubmit = async (event) => {
+
+    const API_URL = process.env.REACT_APP_BASE_URL
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
-    const firstName = data.get('firstName');
-    const lastName = data.get('lastName');
-    const name = `${firstName} ${lastName}`;
+    const fname = data.get('firstName');
+    const lname = data.get('lastName');
+    const name = `${fname} ${lname}`;
     const street = data.get('street');
     const city = data.get('city');
     const notes = data.get('notes');
+
   
     try {
-      const selectedParentCustomerId = selectedSubCustomers[0];
-      const parentCustomer = customers.find((customer) => customer._id === selectedParentCustomerId);
-      if (!parentCustomer) {
-        console.error('Parent customer not found');
-        return;
-      }
-  
-      const response = await addCustomer({
-        name,
-        email,
-        street,
-        city,
-        notes,
-        subCustomers: [],
-        parent: parentCustomer._id, // Set the parent customer ID
+      const response = await fetch(`${API_URL}/api/customers/addCustomer`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          street,
+          city,
+          notes,
+        }),
       });
-  
+      
+      const responseData = await response.json();
+      
       if (response.ok) {
-        setShowSnackbar(true);
+        console.log("worked")
+
       } else {
-        setShowErrorSnackbar(true);
-        setSnackbarMessage(`Error: ${response.error}`);
-        console.error('Request failed:', response);
+        // handle error case
+        console.error('Request failed:', responseData);
       }
     } catch (error) {
-      setShowErrorSnackbar(true);
-      setSnackbarMessage('An error occurred');
       console.error('Error:', error);
     }
   };
-  
   
 
   return (
@@ -146,10 +122,22 @@ export default function AddCustomer() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField fullWidth id="street" label="Street" name="street" />
+                <TextField
+                  fullWidth
+                  id="street"
+                  label="Street"
+                  name="street"
+                //   autoComplete="email"
+                />
               </Grid>
               <Grid item xs={12}>
-                <TextField fullWidth id="city" label="City" name="city" />
+                <TextField
+                  fullWidth
+                  id="city"
+                  label="City"
+                  name="city"
+                //   autoComplete="email"
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -161,26 +149,12 @@ export default function AddCustomer() {
                   rows={3}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <InputLabel id="subCustomers">Sub Customers</InputLabel>
-                <Select
-                  fullWidth
-                  multiple
-                  value={selectedSubCustomers}
-                  label="Sub Customers"
-                  name="selectedSubCustomers"
-                  onChange={handleSubCustomerChange}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {customers.map((customer) => (
-                    <MenuItem key={customer._id} value={customer._id}>
-                      {customer.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Grid>
+              {/* 
+              
+              TODO ADD THE DROP DOWN AND API CALL TO GET THE 
+              CUSTOMERS AND DEFAULT THE DROPDOWN TO NONE
+
+              */}
             </Grid>
             <Button
               type="submit"
@@ -188,22 +162,13 @@ export default function AddCustomer() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Add Customer
+              Request Access
             </Button>
-            <SuccessSnackbar
-              showSnackbar={showSnackbar}
-              handleSnackbarClose={handleSnackbarClose}
-              message="Customer Added"
-            />
-            <ErrorSnackbar
-              showSnackbar={showErrorSnackbar}
-              handleSnackbarClose={handleErrorSnackbarClose}
-              message={snackbarMessage}
-            />
+            <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"Request success you will be redirected in 5 seconds"}/>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/customers" variant="body2">
-                  Click Here to go back to table
+                <Link href="/login" variant="body2">
+                  Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
