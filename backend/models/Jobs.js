@@ -1,3 +1,4 @@
+import { Decimal128 } from 'mongodb';
 import mongoose from 'mongoose';
 
 const JobsSchema = new mongoose.Schema(
@@ -43,14 +44,16 @@ const JobsSchema = new mongoose.Schema(
             type: String
         },
         estMoney:{
-            type: String
+            type: Decimal128
         },
         phone:{
             type: String
         },
+        owner: {
+            type: String
+        },
         scheduledDate:{
-            // NOT SURE YET 
-            type: String // CHANGE THIS LATER 
+            type: String 
         },
         assignedTo:{
             type: [
