@@ -10,7 +10,6 @@ const JobsSchema = new mongoose.Schema(
         },
         comp:{
             type: Boolean,
-            default: false,
         },
         invoiceNumber:{
             type: Number,
@@ -33,7 +32,7 @@ const JobsSchema = new mongoose.Schema(
             },
             street:{
                 type: String
-            },
+            }
         },
         description:{
             type: String,

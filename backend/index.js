@@ -17,7 +17,6 @@ import { getForgotPassword } from './apis/forgotPasswordApis/getForgotPassword.j
 import { postForgotPassword } from './apis/forgotPasswordApis/postForgotPassword.js'
 import { getAllUsers } from './apis/userApis/getAllUsers.js'
 import { addNewJob } from './apis/jobsApis/newJob.js'
-import { addCustomer } from './apis/customers/addCustomer.js'
 // import { updateJob } from './apis/jobsApis/updateJob.js'
 // import { deleteJob } from './apis/jobsApis/deleteJob.js'
 
@@ -90,11 +89,6 @@ app.get("/api/user/getUsers", getAllUsers);
 app.post("/api/jobs/addJob", addNewJob);
 // app.put('/api/jobs/updateJob/:id', verifyToken, updateJob);
 // app.delete('/api/jobs/delete/:id', verifyToken, deleteJob)
-
-// --------------------------------------------------------
-
-// CUSTOMER APIS
-app.post("/api/customers/addCustomer", addCustomer);
 
 // --------------------------------------------------------
 

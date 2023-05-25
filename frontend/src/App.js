@@ -11,8 +11,6 @@ import { Invoices } from "scenes/Invoices";
 import { Calendar } from "scenes/Calendar";
 import { Employees } from "scenes/employees";
 import AddJob from "components/addNewJob/AddJob";
-import { Customers } from "scenes/customers";
-import AddCustomer from "components/addNewCustomer/AddCustomer";
 function App() {
   
   if (!window.localStorage.getItem("isLoggedIn")) {
@@ -34,8 +32,6 @@ function App() {
             <Route path="/calendar" element={<Calendar />} /> {/* Wrap ProtectedRoutes */}
             <Route path="/employees" element={<Employees />} /> {/* Wrap ProtectedRoutes */}
             <Route path="/jobs/newJob" element={<AddJob />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/customers/addNewCustomer" element={<AddCustomer />} />
           </Route>
         </Routes>
       </ThemeProvider>
