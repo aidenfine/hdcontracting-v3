@@ -2,7 +2,7 @@ import { Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, 
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import FlexBetween from './FlexBetween';
-import { CalendarTodayOutlined, ChevronLeft, ChevronRightOutlined, HomeOutlined, PeopleAltOutlined, ReceiptOutlined, WorkOutlineOutlined } from '@mui/icons-material';
+import { CalendarTodayOutlined, ChevronLeft, ChevronRightOutlined, ContactPage, ContactPageOutlined, HomeOutlined, PeopleAltOutlined, ReceiptOutlined, WorkOutlineOutlined } from '@mui/icons-material';
 
 const navItems = [
     {
@@ -29,6 +29,10 @@ const navItems = [
     {
         text: "Invoices",
         icon: <ReceiptOutlined />
+    },
+    {
+        text: "Customers",
+        icon: <ContactPageOutlined />
     },
     {
         text: "Employees",

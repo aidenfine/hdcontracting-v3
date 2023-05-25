@@ -10,7 +10,7 @@ import { Jobs } from "scenes/jobs";
 import { Invoices } from "scenes/Invoices";
 import { Calendar } from "scenes/Calendar";
 import { Employees } from "scenes/employees";
-import ProtectedRoutes from "components/ProtectedRoutes";
+import { Customers } from "scenes/customers";
 
 function App() {
   
@@ -32,6 +32,7 @@ function App() {
             <Route path="/invoices" element={<Invoices />} /> {/* Wrap ProtectedRoutes */}
             <Route path="/calendar" element={<Calendar />} /> {/* Wrap ProtectedRoutes */}
             <Route path="/employees" element={<Employees />} /> {/* Wrap ProtectedRoutes */}
+            <Route path="/customers" element={<Customers />} />
           </Route>
         </Routes>
       </ThemeProvider>
