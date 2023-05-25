@@ -152,7 +152,7 @@ export default function NewJob() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   name="jobNumber"
                   required
@@ -164,7 +164,7 @@ export default function NewJob() {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -175,9 +175,10 @@ export default function NewJob() {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12}>
               <InputLabel id="comp">Comp?</InputLabel>
                 <Select
+                 fullWidth
                  value={comp}
                  required
                  name="comp"
