@@ -10,8 +10,10 @@ import { Jobs } from "scenes/jobs";
 import { Invoices } from "scenes/Invoices";
 import { Calendar } from "scenes/Calendar";
 import { Employees } from "scenes/employees";
-import ProtectedRoutes from "components/ProtectedRoutes";
-
+import AddJob from "components/addNewJob/AddJob";
+import { Customers } from "scenes/customers";
+import AddCustomer from "components/addNewCustomer/AddCustomer";
+import { CustomerDetails } from "scenes/customers/customerDetails/CustomerDetails";
 function App() {
   
   if (!window.localStorage.getItem("isLoggedIn")) {
@@ -32,6 +34,10 @@ function App() {
             <Route path="/invoices" element={<Invoices />} /> {/* Wrap ProtectedRoutes */}
             <Route path="/calendar" element={<Calendar />} /> {/* Wrap ProtectedRoutes */}
             <Route path="/employees" element={<Employees />} /> {/* Wrap ProtectedRoutes */}
+            <Route path="/jobs/newJob" element={<AddJob />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/customers/addNewCustomer" element={<AddCustomer />} />
+            <Route path="/customers/details/:id" element={<CustomerDetails />} />
           </Route>
         </Routes>
       </ThemeProvider>

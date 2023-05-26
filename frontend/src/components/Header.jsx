@@ -1,7 +1,6 @@
-import { Typography, Box, useTheme } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 const Header = ({ title, subtitle }) => {
-  const theme = useTheme();
   return (
     <Box mb="30px">
       <Typography
