@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SuccessSnackbar from 'components/SuccessSnackbar';
 import { PersonAdd } from '@mui/icons-material';
+import ErrorSnackbar from 'components/ErrorSnackbar';
 
 const theme = createTheme();
 
@@ -18,6 +19,7 @@ const theme = createTheme();
 export default function AddCustomer() {
 
   const [showSnackbar, setShowSnackbar] = React.useState(false);
+  const [showErrorSnackbar, setShowErrorSnackbar] = React.useState(false);
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
@@ -61,11 +63,13 @@ export default function AddCustomer() {
       const responseData = await response.json();
       
       if (response.ok) {
-        console.log("worked")
+        setShowSnackbar(true);
+
 
       } else {
         // handle error case
         console.error('Request failed:', responseData);
+        setShowErrorSnackbar(true);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -163,13 +167,18 @@ export default function AddCustomer() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Request Access
+              Add Customer
             </Button>
-            <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"Request success you will be redirected in 5 seconds"}/>
+            <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"Customer Added"}/>
+            <ErrorSnackbar
+              message="Please fill out required Items"
+              showSnackbar={showErrorSnackbar}
+              handleSnackbarClose={handleSnackbarClose}
+            />
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
+                <Link href="/customers" variant="body2">
+                  View Table
                 </Link>
               </Grid>
             </Grid>

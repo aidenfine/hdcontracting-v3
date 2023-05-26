@@ -2,6 +2,8 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import getAllCustomers from '../../api/getAllCustomers';
 import { Card, Grid } from '@mui/material';
+import SyncLoader from 'react-spinners/SyncLoader'
+import { override } from './style';
 
 const columns = [
   { field: 'name', headerName: 'Full name', width: 130 },
@@ -22,7 +24,7 @@ const columns = [
   {
     field: 'street',
     headerName: 'Street',
-    width: 100,
+    width: 200,
     valueGetter: (params) => {
       if(!params.row.address.street){
         return ''
@@ -34,7 +36,7 @@ const columns = [
   {
     field: 'city',
     headerName: 'City',
-    width: 120,
+    width: 150,
     valueGetter: (params) => {
       if(!params.row.address.city){
         return ''
@@ -48,6 +50,7 @@ const columns = [
 
 
 export default function CustomersTable() {
+  const [loading, setLoading] = React.useState(true);
 
   const [rows, setRows] = React.useState([]);
 
@@ -57,8 +60,10 @@ export default function CustomersTable() {
         const response = await getAllCustomers();
         const data = response.data
         setRows(data);
+        setLoading(false);
       } catch (error) {
         console.error("error", error)
+        setLoading(false);
       }
     };
     fetchCustomers();
@@ -82,6 +87,12 @@ export default function CustomersTable() {
         height: 'auto',
       }}
       >
+        {loading ? (
+            <SyncLoader
+            cssOverride={override}
+            color='#e42525'
+            />
+        ): (
       <DataGrid
         rows={rows}
         columns={columns}
@@ -94,6 +105,7 @@ export default function CustomersTable() {
         pageSizeOptions={[5, 10, 15, 20, 25, 30, 35]}
         checkboxSelection
       />
+      )}
       </Card>
     </Grid>
   );
