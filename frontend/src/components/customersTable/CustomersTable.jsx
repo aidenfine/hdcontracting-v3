@@ -73,7 +73,7 @@ export default function CustomersTable() {
   const [loading, setLoading] = React.useState(true);
   const [rows, setRows] = React.useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedRow, setSelectedRow] = React.useState(null);
+  const [setSelectedRow] = React.useState(null);
 
   React.useEffect(() => {
     const fetchCustomers = async () => {
@@ -133,6 +133,11 @@ export default function CustomersTable() {
               }}
               pageSizeOptions={[5, 10, 15, 20, 25, 30, 35]}
               disableSelectionOnClick
+              disableColumnMenu
+              checkboxSelection={false}
+              sx={{
+                outline: 'none'
+              }}
             />
             <Menu
               anchorEl={anchorEl}
