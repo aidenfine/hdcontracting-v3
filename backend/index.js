@@ -19,8 +19,7 @@ import { getAllUsers } from './apis/userApis/getAllUsers.js'
 import { addNewJob } from './apis/jobsApis/newJob.js'
 import { addCustomer } from './apis/customers/addCustomer.js'
 import { getAllCustomers } from './apis/customers/getAllCustomers.js'
-// import { updateJob } from './apis/jobsApis/updateJob.js'
-// import { deleteJob } from './apis/jobsApis/deleteJob.js'
+import { getCustomerById } from './apis/customers/getCustomerById.js'
 
 
 /* ------------------------------------------- */
@@ -97,6 +96,7 @@ app.post("/api/jobs/addJob", addNewJob);
 // CUSTOMER APIS
 app.post("/api/customers/addCustomer", addCustomer);
 app.get("/api/customers/getCustomers", getAllCustomers);
+app.get("/api/customers/id/:id", getCustomerById);
 
 // --------------------------------------------------------
 
