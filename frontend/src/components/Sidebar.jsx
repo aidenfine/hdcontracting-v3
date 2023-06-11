@@ -101,14 +101,17 @@ const Sidebar = ({
                                     <ListItemButton onClick={()=> { navigate(`/${lowerCaseText}`);
                                     setActive(lowerCaseText);}}
                                     sx={{
-                                        backgroundColor: active === lowerCaseText ? "rgba(102, 108, 255, 0.12)" : "transparent",
-                                        color: active === lowerCaseText ? "#696CFF" : "#32475C"
+                                        backgroundColor: active === lowerCaseText ? "rgba(246, 24, 68, 0.20)" : "transparent",
+                                        color: active === lowerCaseText ? "#000000" : "#32475C",
+                                        "&:hover": {
+                                            backgroundColor: "rgba(246, 24, 68, 0.10)"
+                                        } // first color changes when selected 
                                     }}
                                     >
                                         <ListItemIcon
                                         sx={{
                                             ml: "2rem",
-                                            color: active === lowerCaseText ? "#696CFF" : "#32475C"
+                                            color: active === lowerCaseText ? "#ff1744" : "#32475C" // first color changes icon color when selected 
                                         }}
                                         >
                                             {icon}
