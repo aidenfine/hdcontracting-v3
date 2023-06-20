@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
-import isAuth from "state/isAuth";
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import isAuth from 'state/isAuth';
 
-import { Box } from "@mui/material";
-import Header from "components/Header";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import listPlugin from "@fullcalendar/list";
+import { Box } from '@mui/material';
+import Header from 'components/Header';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
 
-import '../Calendar/styles.css'
+import '../Calendar/styles.css';
 
-import CalendarModal from "components/CalendarModal";
+import CalendarModal from 'components/CalendarModal';
 
 export const Calendar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -47,16 +47,11 @@ export const Calendar = () => {
         <Box flex="1 1 100%" ml="15px">
           <FullCalendar
             height="75vh"
-            plugins={[
-              dayGridPlugin,
-              timeGridPlugin,
-              interactionPlugin,
-              listPlugin,
-            ]}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
             headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
             }}
             initialView="dayGridMonth"
             editable={true}

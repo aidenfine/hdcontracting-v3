@@ -15,19 +15,16 @@ import ErrorSnackbar from 'components/ErrorSnackbar';
 
 const theme = createTheme();
 
-
 export default function AddCustomer() {
-
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [showErrorSnackbar, setShowErrorSnackbar] = React.useState(false);
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
-  }
+  };
 
   const handleSubmit = async (event) => {
-
-    const API_URL = process.env.REACT_APP_BASE_URL
+    const API_URL = process.env.REACT_APP_BASE_URL;
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,7 +36,6 @@ export default function AddCustomer() {
     const city = data.get('city');
     const notes = data.get('notes');
 
-  
     try {
       const response = await fetch(`${API_URL}/api/customers/addCustomer`, {
         method: 'POST',
@@ -59,13 +55,11 @@ export default function AddCustomer() {
           },
         }),
       });
-      
+
       const responseData = await response.json();
-      
+
       if (response.ok) {
         setShowSnackbar(true);
-
-
       } else {
         // handle error case
         console.error('Request failed:', responseData);
@@ -75,7 +69,6 @@ export default function AddCustomer() {
       console.error('Error:', error);
     }
   };
-  
 
   return (
     <ThemeProvider theme={theme}>
@@ -132,7 +125,7 @@ export default function AddCustomer() {
                   id="street"
                   label="Street"
                   name="street"
-                //   autoComplete="email"
+                  //   autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -141,18 +134,11 @@ export default function AddCustomer() {
                   id="city"
                   label="City"
                   name="city"
-                //   autoComplete="email"
+                  //   autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  id="notes"
-                  label="Notes"
-                  name="notes"
-                  multiline
-                  rows={3}
-                />
+                <TextField fullWidth id="notes" label="Notes" name="notes" multiline rows={3} />
               </Grid>
               {/* 
               
@@ -161,15 +147,14 @@ export default function AddCustomer() {
 
               */}
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Add Customer
             </Button>
-            <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"Customer Added"}/>
+            <SuccessSnackbar
+              showSnackbar={showSnackbar}
+              handleSnackbarClose={handleSnackbarClose}
+              message={'Customer Added'}
+            />
             <ErrorSnackbar
               message="Please fill out required Items"
               showSnackbar={showErrorSnackbar}

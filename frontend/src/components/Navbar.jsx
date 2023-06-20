@@ -1,74 +1,35 @@
-import React from "react";
-import {
-  Menu as MenuIcon,
-  SearchOutlined,
-  SettingsOutlined,
-} from "@mui/icons-material";
-import FlexBetween from "./FlexBetween";
-import {
-  AppBar,
-  Button,
-  IconButton,
-  TextField,
-  Toolbar,
-} from "@mui/material";
+import React from 'react';
+import { Menu as MenuIcon, SearchOutlined, SettingsOutlined } from '@mui/icons-material';
+import FlexBetween from './FlexBetween';
+import { AppBar, Button, IconButton, TextField, Toolbar } from '@mui/material';
 
-
-const Navbar = ({
-  isSidebarOpen,
-  setIsSidebarOpen,
-})=>{
-
-  function logout(){
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  function logout() {
     window.localStorage.clear();
-    window.location.href="/";
+    window.location.href = '/';
   }
 
   return (
     <AppBar
       sx={{
-        position: "static",
-        background: "none",
-        boxShadow: "none",
+        position: 'static',
+        background: 'none',
+        boxShadow: 'none',
       }}
     >
-      <Toolbar sx={{ justifyContent: "space-between" }}>
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
         {/*  LEFT SIDE OF PAGE  */}
         <FlexBetween flexGrow={1}>
           <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
             <MenuIcon />
           </IconButton>
-          <FlexBetween
-            flexGrow={1}
-            borderRadius="100px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
-          >
-            <TextField 
-            variant="outlined" 
-            background="#FFFFFFF"
-            sx={{backgroundColor:"white", boxShadow: 2, borderRadius: "10px", "& fieldset": { border: 'none'}}}
-            fullWidth 
-             placeholder="Search..."
-             InputProps={{
-              startAdornment: (
-                <IconButton>
-                  <SearchOutlined />
-                </IconButton>
-              ),
-              endAdornment:(
-              <IconButton>
-                <SettingsOutlined sx={{ fontSize: "25px" }} />
-              </IconButton>
-              )
-             }}
-             />
-          </FlexBetween>
+          <FlexBetween flexGrow={1} borderRadius="100px" gap="3rem" p="0.1rem 1.5rem"></FlexBetween>
         </FlexBetween>
-        <Button variant="outlined" onClick={logout} color="error">Sign out</Button>
+        <Button variant="outlined" onClick={logout} color="error">
+          Sign out
+        </Button>
         {/* RIGHT SIDE */}
-        <FlexBetween gap="1.5rem">
-        </FlexBetween>
+        <FlexBetween gap="1.5rem"></FlexBetween>
       </Toolbar>
     </AppBar>
   );

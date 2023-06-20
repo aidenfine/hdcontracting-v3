@@ -1,7 +1,7 @@
 const getAllCustomers = async () => {
-    const API_URL = process.env.REACT_APP_BASE_URL;
-  
-    const res = await fetch(`${API_URL}/api/customers/getCustomers`, {
+  const API_URL = process.env.REACT_APP_BASE_URL;
+
+  const res = await fetch(`${API_URL}/api/customers/getCustomers`, {
     method: 'GET',
     crossDomain: true,
     headers: {
@@ -11,7 +11,6 @@ const getAllCustomers = async () => {
     },
   });
   return await res.json();
-  };
-  
-  export default getAllCustomers;
-  
+};
+
+export default getAllCustomers;

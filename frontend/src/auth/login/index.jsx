@@ -15,7 +15,6 @@ import SuccessSnackbar from 'components/SuccessSnackbar';
 import { Navigate } from 'react-router-dom';
 import InfoSnackbar from 'components/InfoSnackbar';
 
-
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,20 +28,18 @@ function Copyright(props) {
   );
 }
 
-
 const theme = createTheme();
-export default function Login(){
+export default function Login() {
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
 
-const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-const [snackbarMessage, setSnackbarMessage] = React.useState('');
+  const [infoSnackbarOpen, setInfoSnackbarOpen] = React.useState(false);
+  const [infoSnackbarMessage, setInfoSnackbarMessage] = React.useState('');
 
-const [infoSnackbarOpen, setInfoSnackbarOpen] = React.useState(false);
-const [infoSnackbarMessage, setInfoSnackbarMessage] = React.useState('');
+  const [successSnackbarOpen, setSuccessSnackbarOpen] = React.useState(false);
+  const [successSnackbarMessage, setSuccessSnackbarMessage] = React.useState('');
 
-const [successSnackbarOpen, setSuccessSnackbarOpen] = React.useState(false);
-const [successSnackbarMessage, setSuccessSnackbarMessage] = React.useState('');
-
-  // simple redirect if user is logged in but ends back onto login page 
+  // simple redirect if user is logged in but ends back onto login page
   React.useEffect(() => {
     if (window.localStorage.isLoggedIn === 'true') {
       setInfoSnackbarOpen(true);
@@ -50,9 +47,7 @@ const [successSnackbarMessage, setSuccessSnackbarMessage] = React.useState('');
     }
   }, []);
 
-
   const API_URL = process.env.REACT_APP_BASE_URL;
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -60,31 +55,31 @@ const [successSnackbarMessage, setSuccessSnackbarMessage] = React.useState('');
     const email = data.get('email');
     const password = data.get('password');
 
-      fetch(`${API_URL}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      })
+    fetch(`${API_URL}/api/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
-        if(data.status === "ok"){
+        if (data.status === 'ok') {
           setSuccessSnackbarOpen(true);
-          setSuccessSnackbarMessage("Success!");
-          window.localStorage.setItem("token", data.data);
-          window.localStorage.setItem("isLoggedIn", true);
-          window.location.href ="/dashboard";
-        } else{
-          setSnackbarOpen(true)
-          setSnackbarMessage(`Error: ${data.error}`) 
+          setSuccessSnackbarMessage('Success!');
+          window.localStorage.setItem('token', data.data);
+          window.localStorage.setItem('isLoggedIn', true);
+          window.location.href = '/dashboard';
+        } else {
+          setSnackbarOpen(true);
+          setSnackbarMessage(`Error: ${data.error}`);
         }
-      })
-  }
+      });
+  };
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -92,17 +87,17 @@ const [successSnackbarMessage, setSuccessSnackbarMessage] = React.useState('');
 
   const handleSuccessSnackbarClose = () => {
     setSuccessSnackbarOpen(false);
-  }
+  };
 
   const handleInfoSnackbarClose = () => {
     setInfoSnackbarOpen(false);
-  }
+  };
 
   if (window.localStorage.isLoggedIn === 'true') {
-    return (<Navigate to="/dashboard" replace />);
+    return <Navigate to="/dashboard" replace />;
   }
 
-   return (
+  return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
@@ -158,12 +153,7 @@ const [successSnackbarMessage, setSuccessSnackbarMessage] = React.useState('');
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
               <Grid container>
@@ -174,12 +164,24 @@ const [successSnackbarMessage, setSuccessSnackbarMessage] = React.useState('');
                 </Grid>
                 <Grid item>
                   <Link href="request-access" variant="body2">
-                    {"Need an account? Request Access"}
+                    {'Need an account? Request Access'}
                   </Link>
                 </Grid>
-                <ErrorSnackbar showSnackbar={snackbarOpen} handleSnackbarClose={handleSnackbarClose} message={snackbarMessage} />
-                <SuccessSnackbar showSnackbar={successSnackbarOpen} handleSnackbarClose={handleSuccessSnackbarClose} message={successSnackbarMessage} />
-                <InfoSnackbar showSnackbar={infoSnackbarOpen} handleSnackbarClose={handleInfoSnackbarClose} message={infoSnackbarMessage} />
+                <ErrorSnackbar
+                  showSnackbar={snackbarOpen}
+                  handleSnackbarClose={handleSnackbarClose}
+                  message={snackbarMessage}
+                />
+                <SuccessSnackbar
+                  showSnackbar={successSnackbarOpen}
+                  handleSnackbarClose={handleSuccessSnackbarClose}
+                  message={successSnackbarMessage}
+                />
+                <InfoSnackbar
+                  showSnackbar={infoSnackbarOpen}
+                  handleSnackbarClose={handleInfoSnackbarClose}
+                  message={infoSnackbarMessage}
+                />
               </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>

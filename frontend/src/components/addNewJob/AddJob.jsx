@@ -18,14 +18,11 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import ErrorSnackbar from 'components/ErrorSnackbar';
 
-
-
 const theme = createTheme();
 
-
 export default function NewJob() {
-    const API_URL = process.env.REACT_APP_BASE_URL
-    console.log(API_URL);
+  const API_URL = process.env.REACT_APP_BASE_URL;
+  console.log(API_URL);
 
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [comp, setComp] = React.useState(false);
@@ -33,13 +30,11 @@ export default function NewJob() {
   const [assignedTo, setAssignedTo] = React.useState([]);
   const [users, setUsers] = useState([]);
 
-
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await getAllUsers();
-        const data = response.data
+        const data = response.data;
         setUsers(data);
       } catch (error) {
         console.error(error);
@@ -48,86 +43,81 @@ export default function NewJob() {
     fetchUsers();
   }, []);
 
-
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
-  }
+  };
   const handleCompChange = (event) => {
     setComp(event.target.value);
-  }
+  };
   const handleAssignedToChange = (event) => {
     const {
       target: { value },
     } = event;
     setAssignedTo(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === 'string' ? value.split(',') : value
     );
   };
 
   const handleSubmit = async (event) => {
     const token = localStorage.getItem('token');
-    console.log(token)
+    console.log(token);
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    if (!form.checkValidity()){
+    if (!form.checkValidity()) {
       setShowSnackbar(true);
-      return; 
+      return;
     }
-  
 
-    const jobData ={
-        jobNumber: formData.get('jobNumber'),
-        phone: formData.get('phone'),
-        owner: formData.get('owner'),
-        lockBox: formData.get('lockBox'),
-        invoiceNumber: formData.get('invoiceNumber'),
-        hoa: formData.get('hoa'),
-        estAmount: formData.get('estAmount'),
-        estNumber: formData.get('estNumber'),
-        email: formData.get('email'),
-        description: formData.get('description'),
-        custPO: formData.get('custPO'),
-        comp: formData.get('comp') === 'true',
+    const jobData = {
+      jobNumber: formData.get('jobNumber'),
+      phone: formData.get('phone'),
+      owner: formData.get('owner'),
+      lockBox: formData.get('lockBox'),
+      invoiceNumber: formData.get('invoiceNumber'),
+      hoa: formData.get('hoa'),
+      estAmount: formData.get('estAmount'),
+      estNumber: formData.get('estNumber'),
+      email: formData.get('email'),
+      description: formData.get('description'),
+      custPO: formData.get('custPO'),
+      comp: formData.get('comp') === 'true',
+      city: formData.get('city'),
+      assignedTo: assignedTo,
+      address: {
         city: formData.get('city'),
-        assignedTo: assignedTo,
-        address: {
-          city: formData.get('city'),
-          street: formData.get('street'),
-        },
-    }
-    console.log(assignedTo)
-
-    
+        street: formData.get('street'),
+      },
+    };
+    console.log(assignedTo);
 
     try {
-        const response = await fetch(`${API_URL}/api/jobs/addJob`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(jobData),
-        });
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data); // Optional: Handle the API response
-            // Reset the form if needed
-            form.reset();
-          } else {
-            console.error('Request failed with status:', response.status);
-            // Handle the error
-          }
-        } catch (error) {
-          console.error(error);
+      const response = await fetch(`${API_URL}/api/jobs/addJob`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jobData),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data); // Optional: Handle the API response
+        // Reset the form if needed
+        form.reset();
+      } else {
+        console.error('Request failed with status:', response.status);
+        // Handle the error
+      }
+    } catch (error) {
+      console.error(error);
     }
-  
+
     console.log(formData);
     // API CALL
   };
-  
 
   return (
     <ThemeProvider theme={theme}>
@@ -173,28 +163,22 @@ export default function NewJob() {
               </Grid>
               {/* TO DO REMOVE THIS COMP THIS SHOULD DEFAULT TO FALSE*/}
               <Grid item xs={12}>
-              <InputLabel id="comp">Comp?</InputLabel>
+                <InputLabel id="comp">Comp?</InputLabel>
                 <Select
-                 fullWidth
-                 value={comp}
-                 required
-                 name="comp"
-                 label="Comp?"
-                 onChange={handleCompChange}
+                  fullWidth
+                  value={comp}
+                  required
+                  name="comp"
+                  label="Comp?"
+                  onChange={handleCompChange}
                 >
-                    <MenuItem value={true}>Yes</MenuItem>
-                    <MenuItem value={false}>No</MenuItem>
+                  <MenuItem value={true}>Yes</MenuItem>
+                  <MenuItem value={false}>No</MenuItem>
                 </Select>
               </Grid>
 
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="street"
-                  label="Street"
-                  name="street"
-                />
+                <TextField required fullWidth id="street" label="Street" name="street" />
               </Grid>
 
               <Grid item xs={12} sm={6}>
@@ -208,38 +192,16 @@ export default function NewJob() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  name="hoa"
-                  label="HOA"
-                  id="hoa"
-                />
+                <TextField required fullWidth name="hoa" label="HOA" id="hoa" />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  name="description"
-                  label="description"
-                  id="Description"
-                />
+                <TextField fullWidth name="description" label="description" id="Description" />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  name="lockBox"
-                  label="Lock Box"
-                  id="lockBox"
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  name="estNumber"
-                  label="Est Number"
-                  id="estNum"
-                  
-                />
+                <TextField fullWidth name="lockBox" label="Lock Box" id="lockBox" />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField fullWidth name="estNumber" label="Est Number" id="estNum" />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -247,83 +209,58 @@ export default function NewJob() {
                   name="estAmount"
                   label="Est Amount"
                   id="estAmount"
-                  type='number'
+                  type="number"
                   InputProps={{
-                    startAdornment: (
-                      <InputAdornment position='start'>
-                        $
-                      </InputAdornment>
-                    ),
+                    startAdornment: <InputAdornment position="start">$</InputAdornment>,
                   }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  name="custPO"
-                  label="Cust PO/WO"
-                  id="custPO"
-                  type='number'
-                />
+                <TextField fullWidth name="custPO" label="Cust PO/WO" id="custPO" type="number" />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  name="owner"
-                  label="Owner"
-                  id="owner"
-                />
+                <TextField fullWidth name="owner" label="Owner" id="owner" />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  name="phone"
-                  label="Phone Number"
-                  id="Description"
-                />
+                <TextField fullWidth name="phone" label="Phone Number" id="Description" />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  name="email"
-                  label="Email"
-                  id="email"
-                />
+                <TextField fullWidth name="email" label="Email" id="email" />
               </Grid>
               <Grid item xs={12}>
-              <InputLabel id="comp">Assign To</InputLabel>
+                <InputLabel id="comp">Assign To</InputLabel>
                 <Select
-                 fullWidth
-                 multiple
-                 value={assignedTo}
-                 label="Assign To"
-                 name="assignedTo"
-                 onChange={handleAssignedToChange}
+                  fullWidth
+                  multiple
+                  value={assignedTo}
+                  label="Assign To"
+                  name="assignedTo"
+                  onChange={handleAssignedToChange}
                 >
-                    {users.map((user) => (
-                        <MenuItem key={user._id} value={user._id}>{user.name}</MenuItem>
-                    ))}
+                  {users.map((user) => (
+                    <MenuItem key={user._id} value={user._id}>
+                      {user.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </Grid>
-
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Add Jobs
             </Button>
-            <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"You have Added a job"}/>
+            <SuccessSnackbar
+              showSnackbar={showSnackbar}
+              handleSnackbarClose={handleSnackbarClose}
+              message={'You have Added a job'}
+            />
           </Box>
         </Box>
         <ErrorSnackbar
-        message="Please fill out required Items"
-        showSnackbar={showSnackbar}
-        handleSnackbarClose={handleSnackbarClose}
+          message="Please fill out required Items"
+          showSnackbar={showSnackbar}
+          handleSnackbarClose={handleSnackbarClose}
         />
       </Container>
     </ThemeProvider>
-  )
-};
+  );
+}
