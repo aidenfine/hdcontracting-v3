@@ -1,48 +1,47 @@
-import { ThemeProvider } from "@mui/material";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { Dashboard } from "scenes/dashboard";
-import Layout from "scenes/layout";
-import theme from '../../frontend/src/theme'
-import Login from './auth/login'
-import RequestAccess from "auth/requestAccess";
-import ForgotPassword from "auth/resetPassword";
-import { Jobs } from "scenes/jobs";
-import { Invoices } from "scenes/Invoices";
-import { Calendar } from "scenes/Calendar";
-import { Employees } from "scenes/employees";
-import AddJob from "components/addNewJob/AddJob";
-import { Customers } from "scenes/customers";
-import AddCustomer from "components/addNewCustomer/AddCustomer";
-import { CustomerDetails } from "scenes/customers/customerDetails/CustomerDetails";
+import { ThemeProvider } from '@mui/material';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { Dashboard } from 'scenes/dashboard';
+import Layout from 'scenes/layout';
+import theme from '../../frontend/src/theme';
+import Login from './auth/login';
+import RequestAccess from 'auth/requestAccess';
+import ForgotPassword from 'auth/resetPassword';
+import { Jobs } from 'scenes/jobs';
+import { Invoices } from 'scenes/Invoices';
+import { Calendar } from 'scenes/Calendar';
+import { Employees } from 'scenes/employees';
+import AddJob from 'components/addNewJob/AddJob';
+import { Customers } from 'scenes/customers';
+import AddCustomer from 'components/addNewCustomer/AddCustomer';
+import { CustomerDetails } from 'scenes/customers/customerDetails/CustomerDetails';
 function App() {
-  
-  if (!window.localStorage.getItem("isLoggedIn")) {
-    window.localStorage.setItem("isLoggedIn", "false");
+  if (!window.localStorage.getItem('isLoggedIn')) {
+    window.localStorage.setItem('isLoggedIn', 'false');
   }
   return (
     <div className="app">
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/request-access" element={<RequestAccess />} />
-          <Route path="/" element={<Navigate to="/login" replace />} />
-          <Route element={<Layout />}>
-            <Route path="/dashboard" element={<Dashboard />} /> {/* Wrap ProtectedRoutes */}
-            <Route path="/jobs" element={<Jobs />} /> {/* Wrap ProtectedRoutes */}
-            <Route path="/invoices" element={<Invoices />} /> {/* Wrap ProtectedRoutes */}
-            <Route path="/calendar" element={<Calendar />} /> {/* Wrap ProtectedRoutes */}
-            <Route path="/employees" element={<Employees />} /> {/* Wrap ProtectedRoutes */}
-            <Route path="/jobs/newJob" element={<AddJob />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/customers/addNewCustomer" element={<AddCustomer />} />
-            <Route path="/customers/details/:id" element={<CustomerDetails />} />
-          </Route>
-        </Routes>
-      </ThemeProvider>
-    </BrowserRouter>
-  </div>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/request-access" element={<RequestAccess />} />
+            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route element={<Layout />}>
+              <Route path="/dashboard" element={<Dashboard />} /> {/* Wrap ProtectedRoutes */}
+              <Route path="/jobs" element={<Jobs />} /> {/* Wrap ProtectedRoutes */}
+              <Route path="/invoices" element={<Invoices />} /> {/* Wrap ProtectedRoutes */}
+              <Route path="/calendar" element={<Calendar />} /> {/* Wrap ProtectedRoutes */}
+              <Route path="/employees" element={<Employees />} /> {/* Wrap ProtectedRoutes */}
+              <Route path="/jobs/newJob" element={<AddJob />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/customers/addNewCustomer" element={<AddCustomer />} />
+              <Route path="/customers/details/:id" element={<CustomerDetails />} />
+            </Route>
+          </Routes>
+        </ThemeProvider>
+      </BrowserRouter>
+    </div>
   );
 }
 
