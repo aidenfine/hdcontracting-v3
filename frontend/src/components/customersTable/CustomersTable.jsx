@@ -3,26 +3,10 @@ import { Grid } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { Card, Menu, MenuItem, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router-dom';
 
 const columns = [
-  {
-    field: 'edit',
-    headerName: '',
-    width: 80,
-    sortable: false,
-    renderCell: (params) => {
-      const navigateToDetails = () => {
-        // Handle navigation to customer details based on params.row._id
-        console.log('Navigate to details:', params.row._id);
-      };
-
-      return (
-        <IconButton onClick={navigateToDetails}>
-          <EditIcon />
-        </IconButton>
-      );
-    },
-  },
+  { field: 'edit', headerName: '', width: 80, sortable: false },
   { field: 'name', headerName: 'Full name', width: 130 },
   { field: 'email', headerName: 'Email', width: 200 },
   { field: 'notes', headerName: 'Notes', width: 350 },
@@ -30,8 +14,8 @@ const columns = [
 
 const CustomersTable = ({ data }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // eslint-disable-next-line no-unused-vars
   const [selectedRow, setSelectedRow] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleCellContextMenu = (params, event) => {
     event.preventDefault();
@@ -44,12 +28,30 @@ const CustomersTable = ({ data }) => {
     setSelectedRow(null);
   };
 
+  const navigateToDetails = (id) => {
+    navigate(`/customers/details/${id}`);
+  };
+
+  const updatedColumns = columns.map((column) => {
+    if (column.field === 'edit') {
+      return {
+        ...column,
+        renderCell: (params) => (
+          <IconButton onClick={() => navigateToDetails(params.row._id)}>
+            <EditIcon />
+          </IconButton>
+        ),
+      };
+    }
+    return column;
+  });
+
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Card sx={{ width: '80%', height: 'auto' }}>
         <DataGrid
           rows={data}
-          columns={columns}
+          columns={updatedColumns}
           getRowId={(row) => row._id}
           onCellContextMenu={handleCellContextMenu}
           initialState={{
