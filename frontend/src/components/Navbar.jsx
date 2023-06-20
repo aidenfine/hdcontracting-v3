@@ -1,7 +1,7 @@
 import React from 'react';
-import { Menu as MenuIcon, SearchOutlined, SettingsOutlined } from '@mui/icons-material';
+import { Menu as MenuIcon } from '@mui/icons-material';
 import FlexBetween from './FlexBetween';
-import { AppBar, Button, IconButton, TextField, Toolbar } from '@mui/material';
+import { AppBar, Button, IconButton, Toolbar } from '@mui/material';
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   function logout() {

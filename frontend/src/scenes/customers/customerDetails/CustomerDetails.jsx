@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import SyncLoader from 'react-spinners/SyncLoader';
 import { Box, Button, Card, Grid, Paper, TextField } from '@mui/material';
 import { card, customerData, customerDetailButtonBox } from './style';
 import { getCustomerById } from '../../../api/getCustomerById';

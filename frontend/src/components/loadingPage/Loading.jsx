@@ -4,7 +4,7 @@ import { box } from './style';
 export default function Loading() {
   return (
     <div style={box}>
-      <SyncLoader />
+      <SyncLoader color="red" />
     </div>
   );
 }
