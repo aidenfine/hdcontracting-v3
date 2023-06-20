@@ -72,6 +72,10 @@ const Sidebar = ({ drawerWidth, isSidebarOpen, setIsSidebarOpen, isNonMobile }) 
     setActive(pathname.substring(1));
   }, [pathname]);
 
+  const handleHeaderClick = () => {
+    navigate('/');
+  };
+
   return (
     <Box component="nav">
       {isSidebarOpen && (
@@ -97,7 +101,12 @@ const Sidebar = ({ drawerWidth, isSidebarOpen, setIsSidebarOpen, isNonMobile }) 
                 {' '}
                 {/* ADD COLOR TO THIS LATER  */}
                 <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Typography variant="h6" color="#32475C" fontWeight="bold">
+                  <Typography
+                    variant="h6"
+                    color="#32475C"
+                    fontWeight="bold"
+                    onClick={handleHeaderClick}
+                  >
                     hd-contracting
                   </Typography>
                 </Box>
