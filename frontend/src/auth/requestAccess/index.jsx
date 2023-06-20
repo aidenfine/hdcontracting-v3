@@ -16,18 +16,15 @@ import SuccessSnackbar from 'components/SuccessSnackbar';
 
 const theme = createTheme();
 
-
 export default function RequestAccess() {
-
   const [showSnackbar, setShowSnackbar] = React.useState(false);
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
-  }
+  };
 
   const handleSubmit = async (event) => {
-
-    const API_URL = process.env.REACT_APP_BASE_URL
+    const API_URL = process.env.REACT_APP_BASE_URL;
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -35,9 +32,9 @@ export default function RequestAccess() {
     const password = data.get('password');
     const fname = data.get('firstName');
     const lname = data.get('lastName');
-    const role = "user"
+    const role = 'user';
     const name = `${fname} ${lname}`;
-  
+
     try {
       const response = await fetch(`${API_URL}/api/request-access`, {
         method: 'POST',
@@ -52,17 +49,16 @@ export default function RequestAccess() {
           role,
         }),
       });
-      
+
       const responseData = await response.json();
-      
+
       if (response.ok) {
         // open alert/snackbar
         setShowSnackbar(true);
         // handle success case
-        setTimeout(function(){
+        setTimeout(function () {
           window.location.replace('/login');
         }, 5000);
-
       } else {
         // handle error case
         console.error('Request failed:', responseData);
@@ -71,7 +67,6 @@ export default function RequestAccess() {
       console.error('Error:', error);
     }
   };
-  
 
   return (
     <ThemeProvider theme={theme}>
@@ -142,15 +137,14 @@ export default function RequestAccess() {
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Request Access
             </Button>
-            <SuccessSnackbar showSnackbar={showSnackbar} handleSnackbarClose={handleSnackbarClose} message={"Request success you will be redirected in 5 seconds"}/>
+            <SuccessSnackbar
+              showSnackbar={showSnackbar}
+              handleSnackbarClose={handleSnackbarClose}
+              message={'Request success you will be redirected in 5 seconds'}
+            />
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">

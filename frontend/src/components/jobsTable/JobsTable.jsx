@@ -17,8 +17,7 @@ const columns = [
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
     width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    valueGetter: (params) => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
 ];
 
@@ -36,7 +35,7 @@ const rows = [
 
 export default function JobsTable() {
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 400, width: '80%' }}>
       <DataGrid
         rows={rows}
         columns={columns}

@@ -1,4 +1,4 @@
 export const override = {
-    justifyContent:"center",
-    alignItems:"center",
-}
+  justifyContent: 'center',
+  alignItems: 'center',
+};
