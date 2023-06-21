@@ -52,6 +52,24 @@ const CustomersTable = ({ data }) => {
     navigate(`/customers/details/${id}`);
   };
 
+  const navigateToDetails = (id) => {
+    navigate(`/customers/details/${id}`);
+  };
+
+  const updatedColumns = columns.map((column) => {
+    if (column.field === 'edit') {
+      return {
+        ...column,
+        renderCell: (params) => (
+          <IconButton onClick={() => navigateToDetails(params.row._id)}>
+            <EditIcon />
+          </IconButton>
+        ),
+      };
+    }
+    return column;
+  });
+
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Card sx={{ width: '80%', height: 'auto', marginTop: '25px' }}>

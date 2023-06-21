@@ -5,7 +5,6 @@ import { card, customerData, customerDetailButtonBox } from './style';
 import { getCustomerById } from '../../../api/getCustomerById';
 import { updateCustomer } from 'api/updateCustomer';
 import Loading from 'components/loadingPage/Loading';
-// Import the getCustomerById and updateCustomer API functions
 
 export function CustomerDetails() {
   const { id } = useParams();
