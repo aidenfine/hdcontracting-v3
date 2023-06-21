@@ -15,8 +15,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { customTableCell, customTableFooter, customTableHead, customTableRow } from './style';
-import { Tooltip } from 'components/tooltip/tooltip';
-
+import { Tooltip } from 'components/tooltip/Tooltip';
 const columns = [
   { field: 'name', headerName: 'Full name', width: 130 },
   { field: 'email', headerName: 'Email', width: 200 },
