@@ -17,7 +17,7 @@ export const customTableFooter = {
 };
 
 export const customTableRow = {
-  "&:hover": {
-    backgroundColor: "#F9FAFB !important"
-  }
-}
+  '&:hover': {
+    backgroundColor: '#F9FAFB !important',
+  },
+};
