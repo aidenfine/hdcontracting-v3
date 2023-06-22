@@ -79,7 +79,7 @@ const CustomersTable = ({ data }) => {
                   ))}
                   <TableCell sx={customTableCell}>
                     <Tooltip
-                      title="Edit Customer"
+                      title="Edit Customer "
                       placement="left"
                       TransitionComponent={Fade}
                       TransitionProps={{ timeout: 250 }}
