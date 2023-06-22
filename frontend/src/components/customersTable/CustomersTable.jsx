@@ -15,7 +15,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { customTableCell, customTableFooter, customTableHead, customTableRow } from './style';
-import { Tooltip } from 'components/tooltip/Tooltip';
+import { Tooltip } from 'components/tooltip/tooltip';
 const columns = [
   { field: 'name', headerName: 'Full name', width: 130 },
   { field: 'email', headerName: 'Email', width: 200 },
@@ -79,7 +79,7 @@ const CustomersTable = ({ data }) => {
                   ))}
                   <TableCell sx={customTableCell}>
                     <Tooltip
-                      title="Edit Customer "
+                      title="Edit Customer"
                       placement="left"
                       TransitionComponent={Fade}
                       TransitionProps={{ timeout: 250 }}
