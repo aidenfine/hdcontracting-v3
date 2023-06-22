@@ -9,10 +9,11 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
-
 import '../Calendar/styles.css';
-
 import CalendarModal from 'components/CalendarModal';
+import FeatureError from 'components/errorPages/featureError/FeatureError';
+
+const featureFlag = process.env.REACT_APP_CALENDAR_FEATURE_FLAG;
 
 export const Calendar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -37,6 +38,9 @@ export const Calendar = () => {
 
   if (!isAuth()) {
     return <Navigate to="/" replace />;
+  }
+  if (featureFlag === 'true') {
+    return <FeatureError />;
   }
 
   return (
