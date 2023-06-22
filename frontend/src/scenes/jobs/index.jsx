@@ -4,6 +4,9 @@ import isAuth from 'state/isAuth';
 import JobsTable from 'components/jobsTable/JobsTable';
 import { Button, Card, CardContent } from '@mui/material';
 import { card } from './styles';
+import FeatureError from 'components/errorPages/featureError/FeatureError';
+
+const featureFlag = process.env.REACT_APP_JOBS_FEATURE_FLAG;
 
 // IMPORT STYLES
 function addNewJobBtn() {
@@ -13,6 +16,9 @@ function addNewJobBtn() {
 export const Jobs = () => {
   if (!isAuth()) {
     return <Navigate to="/" replace />;
+  }
+  if (featureFlag === 'true') {
+    return <FeatureError />;
   }
   return (
     <Card sx={card}>
