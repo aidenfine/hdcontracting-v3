@@ -5,6 +5,8 @@ import isAuth from 'state/isAuth';
 import CustomersTable from 'components/customersTable/CustomersTable';
 import getAllCustomers from 'api/getAllCustomers';
 import Loading from 'components/loadingPage/Loading';
+import { isMobile } from 'react-device-detect';
+import { CustomersMobile } from 'mobile/pages/CustomersMobile';
 
 function addNewCustomerBtn() {
   window.location.href = '/customers/addNewCustomer';
@@ -30,8 +32,13 @@ export const Customers = () => {
   if (!isAuth()) {
     return <Navigate to="/" replace />;
   }
+
   if (loading) {
     return <Loading />;
+  }
+
+  if (isMobile) {
+    return <CustomersMobile />;
   }
   return (
     <Grid item xs={3} sx={{ margin: '10px' }}>

@@ -10,11 +10,12 @@ import {
   TableCell,
   IconButton,
   TablePagination,
+  Fade,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
-import { customTableCell, customTableFooter, customTableHead } from './style';
-
+import { customTableCell, customTableFooter, customTableHead, customTableRow } from './style';
+import { Tooltip } from 'components/tooltip/Tooltip';
 const columns = [
   { field: 'name', headerName: 'Full name', width: 130 },
   { field: 'email', headerName: 'Email', width: 200 },
@@ -52,24 +53,6 @@ const CustomersTable = ({ data }) => {
     navigate(`/customers/details/${id}`);
   };
 
-  const navigateToDetails = (id) => {
-    navigate(`/customers/details/${id}`);
-  };
-
-  const updatedColumns = columns.map((column) => {
-    if (column.field === 'edit') {
-      return {
-        ...column,
-        renderCell: (params) => (
-          <IconButton onClick={() => navigateToDetails(params.row._id)}>
-            <EditIcon />
-          </IconButton>
-        ),
-      };
-    }
-    return column;
-  });
-
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Card sx={{ width: '80%', height: 'auto', marginTop: '25px' }}>
@@ -85,18 +68,26 @@ const CustomersTable = ({ data }) => {
                 <TableCell sx={customTableCell}></TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {displayedData.map((row) => (
-                <TableRow key={row._id}>
+                <TableRow key={row._id} sx={customTableRow}>
                   {columns.map((column) => (
                     <TableCell key={column.field} sx={customTableCell}>
                       {truncateText(row[column.field], MAX_CHAR_LIMIT)}
                     </TableCell>
                   ))}
                   <TableCell sx={customTableCell}>
-                    <IconButton onClick={() => handleDetailsClick(row._id)}>
-                      <EditIcon />
-                    </IconButton>
+                    <Tooltip
+                      title="Edit Customer"
+                      placement="left"
+                      TransitionComponent={Fade}
+                      TransitionProps={{ timeout: 250 }}
+                    >
+                      <IconButton onClick={() => handleDetailsClick(row._id)}>
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}

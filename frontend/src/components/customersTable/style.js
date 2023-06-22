@@ -4,7 +4,7 @@ export const override = {
 };
 
 export const customTableHead = {
-  backgroundColor: '#F9FAFB',
+  backgroundColor: '#',
   borderRadius: '15px',
 };
 
@@ -14,4 +14,10 @@ export const customTableCell = {
 
 export const customTableFooter = {
   backgroundColor: '#F9FAFB',
+};
+
+export const customTableRow = {
+  '&:hover': {
+    backgroundColor: '#F9FAFB !important',
+  },
 };
