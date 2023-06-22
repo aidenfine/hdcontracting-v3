@@ -4,7 +4,7 @@ export const override = {
 };
 
 export const customTableHead = {
-  backgroundColor: '#F9FAFB',
+  backgroundColor: '#',
   borderRadius: '15px',
 };
 
