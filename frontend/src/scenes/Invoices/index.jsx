@@ -12,5 +12,5 @@ export const Invoices = () => {
   if (featureFlag === 'true') {
     return <FeatureError />;
   }
-  return <div>Invoices</div>;
+  return <div>Invoicesssss</div>;
 };
