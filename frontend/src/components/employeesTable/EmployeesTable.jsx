@@ -12,26 +12,35 @@ import {
   TablePagination,
   Fade,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { customTableCell, customTableFooter, customTableHead, customTableRow } from './style';
 import { Tooltip } from 'components/tooltip/tooltip';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CheckIcon from '@mui/icons-material/Check';
-import { removeUser } from 'api/removeUser';
-
+import CustomDialog from 'components/dialog/CustomDialog';
+import { dialogText } from './config';
 
 const columns = [
   { field: 'name', headerName: 'Full name', width: 130 },
   { field: 'email', headerName: 'Email', width: 200 },
   { field: 'role', headerName: 'Role', width: 250 },
   { field: 'isVerifed', headerName: 'Verified', width: 250 },
-
 ];
 
 const EmployeesTable = ({ data }) => {
-  const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [selectedUserId, setSelectedUserId] = React.useState('');
+
+  const handleClickOpen = (id) => {
+    setOpenDialog(true);
+    setSelectedUserId(id);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+    setSelectedUserId('');
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -42,20 +51,18 @@ const EmployeesTable = ({ data }) => {
     setPage(0);
   };
 
-  console.log(data)
-
   const startIndex = page * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const displayedData = data.slice(startIndex, endIndex);
 
   const handleDeleteClick = (id) => {
-    console.log(`remove user ${id} `)
-    removeUser(id)
+    console.log(`deleted user ${id}`);
+    handleClickOpen(id);
   };
 
   const handleVerifyClick = (id) => {
-    console.log(`verify user ${id}`)
-  }
+    console.log(`verify user ${id}`);
+  };
 
   return (
     <Grid container justifyContent="center" alignItems="center">
@@ -72,17 +79,16 @@ const EmployeesTable = ({ data }) => {
                 <TableCell sx={customTableCell}></TableCell>
               </TableRow>
             </TableHead>
-
             <TableBody>
               {displayedData.map((row) => (
                 <TableRow key={row._id} sx={customTableRow}>
                   {columns.map((column) => (
                     <TableCell key={column.field} sx={customTableCell}>
-                        {column.field === 'isVerifed' ? (
-                            row.isVerifed ? 'Yes' : 'No'
-                        ): (
-                            row[column.field]
-                        )}
+                      {column.field === 'isVerifed'
+                        ? row.isVerifed
+                          ? 'Yes'
+                          : 'No'
+                        : row[column.field]}
                     </TableCell>
                   ))}
                   <TableCell sx={customTableCell}>
@@ -98,16 +104,18 @@ const EmployeesTable = ({ data }) => {
                     </Tooltip>
                   </TableCell>
                   <TableCell sx={customTableCell}>
-                    <Tooltip
-                    title="Verify User"
-                    placement="left"
-                    TransitionComponent={Fade}
-                    TransitionProps={{ timeout: 250 }}
-                    >
+                    {!row.isVerifed ? (
+                      <Tooltip
+                        title="Verify User"
+                        placement="left"
+                        TransitionComponent={Fade}
+                        TransitionProps={{ timeout: 250 }}
+                      >
                         <IconButton onClick={() => handleVerifyClick(row._id)}>
-                            <CheckIcon />
+                          <CheckIcon />
                         </IconButton>
-                    </Tooltip>
+                      </Tooltip>
+                    ) : null}
                   </TableCell>
                 </TableRow>
               ))}
@@ -125,6 +133,13 @@ const EmployeesTable = ({ data }) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Card>
+      <CustomDialog
+        title={'Delete User'}
+        text={dialogText}
+        open={openDialog}
+        close={handleClose}
+        id={selectedUserId}
+      />
     </Grid>
   );
 };

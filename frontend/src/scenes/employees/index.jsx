@@ -1,8 +1,7 @@
-import { Button, Card, CardContent, Grid } from '@mui/material';
+import { Card, CardContent, Grid } from '@mui/material';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import isAuth from 'state/isAuth';
-import CustomersTable from 'components/customersTable/CustomersTable';
 import Loading from 'components/loadingPage/Loading';
 import { isMobile } from 'react-device-detect';
 import { CustomersMobile } from 'mobile/pages/CustomersMobile';
