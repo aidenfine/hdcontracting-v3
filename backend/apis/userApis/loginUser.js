@@ -17,7 +17,9 @@ export const loginUser = async (req, res) => {
   
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
-      const token = jwt.sign({}, JWT_SECRET);
+      const token = jwt.sign({}, JWT_SECRET,{
+        expiresIn: 1800, // 30 mins
+      });
   
       if (res.status(201)) {
         return res.json({ status: "ok", data: token });
