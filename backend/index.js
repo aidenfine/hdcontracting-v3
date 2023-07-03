@@ -21,6 +21,7 @@ import { addCustomer } from './apis/customers/addCustomer.js'
 import { getAllCustomers } from './apis/customers/getAllCustomers.js'
 import { getCustomerById } from './apis/customers/getCustomerById.js'
 import { updateCustomer } from './apis/customers/updateCustomer.js'
+import { removeUser } from './apis/userApis/removeUser.js'
 
 
 /* ------------------------------------------- */
@@ -77,13 +78,10 @@ app.post("/api/login", loginUser);
 
 // --------------------------------------------------------
 
-// USER DATA 
+// USER APIS 
 app.post("/api/userData", userData);
-
-// --------------------------------------------------------
-
-// GET ALL USERS 
 app.get("/api/user/getUsers", getAllUsers);
+app.delete('/api/user/remove/:id', removeUser);
 
 // --------------------------------------------------------
 
