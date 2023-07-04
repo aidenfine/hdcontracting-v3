@@ -26,6 +26,7 @@ export default function RoleChangeDialog({ close, open, id }) {
       const role = selectedRole.id;
       changeRole(id, role);
       close(); // Close the dialog
+      window.location.reload();
     }
   };
 

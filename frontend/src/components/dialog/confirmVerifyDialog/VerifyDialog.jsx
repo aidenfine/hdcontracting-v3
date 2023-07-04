@@ -12,6 +12,7 @@ export default function VerifyDialog({ title, open, close, text, id }) {
     setShowSnackbar(true);
     await verifyUser(id);
     close();
+    window.location.reload();
   };
 
   const handleSnackbarClose = () => {
