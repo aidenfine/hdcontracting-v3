@@ -5,7 +5,6 @@ import { removeUser } from 'api/removeUser';
 
 export default function CustomDialog({ title, open, close, text, id }) {
   const handleConfirm = () => {
-    console.log(` remove usr ${id}`);
     removeUser(id);
     window.location.reload();
   };

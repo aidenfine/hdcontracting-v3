@@ -22,7 +22,6 @@ const theme = createTheme();
 
 export default function NewJob() {
   const API_URL = process.env.REACT_APP_BASE_URL;
-  console.log(API_URL);
 
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [comp, setComp] = React.useState(false);
@@ -61,7 +60,6 @@ export default function NewJob() {
 
   const handleSubmit = async (event) => {
     const token = localStorage.getItem('token');
-    console.log(token);
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);

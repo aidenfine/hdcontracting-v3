@@ -23,6 +23,7 @@ import { getCustomerById } from './apis/customers/getCustomerById.js'
 import { updateCustomer } from './apis/customers/updateCustomer.js'
 import { removeUser } from './apis/userApis/removeUser.js'
 import { verifyUser } from './apis/userApis/verifyUser.js'
+import { changeRole } from './apis/userApis/changeRole.js'
 
 
 /* ------------------------------------------- */
@@ -84,6 +85,7 @@ app.post("/api/userData", userData);
 app.get("/api/user/getUsers", getAllUsers);
 app.delete('/api/user/remove/:id', removeUser);
 app.put('/api/user/verify/:id', verifyUser);
+app.put('/api/user/changeRole/:id/:role', changeRole);
 
 // --------------------------------------------------------
 

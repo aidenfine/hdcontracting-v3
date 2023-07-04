@@ -15,11 +15,13 @@ import {
 import { customTableCell, customTableFooter, customTableHead, customTableRow } from './style';
 import { Tooltip } from 'components/tooltip/tooltip';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import CheckIcon from '@mui/icons-material/Check';
 import CustomDialog from 'components/dialog/CustomDialog';
 import { dialogText } from './config';
 import VerifyDialog from 'components/dialog/confirmVerifyDialog/VerifyDialog';
 import { verifyUserText } from 'components/dialog/confirmVerifyDialog/config';
+import RoleChangeDialog from 'components/dialog/roleChangeDialog/RoleChangeDialog';
 
 const columns = [
   { field: 'name', headerName: 'Full name', width: 130 },
@@ -34,6 +36,8 @@ const EmployeesTable = ({ data }) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [selectedUserId, setSelectedUserId] = React.useState('');
   const [openVerifyDialog, setOpenVerifyDialog] = React.useState(false);
+
+  const [openRolePopup, setOpenRolePopup] = React.useState(false);
 
   const handleClickOpen = (id) => {
     setOpenDialog(true);
@@ -64,18 +68,29 @@ const EmployeesTable = ({ data }) => {
     setPage(0);
   };
 
+  const handleRolePopupOpen = (id) => {
+    setOpenRolePopup(true);
+    setSelectedUserId(id);
+  };
+  const handleRolePopupClose = () => {
+    setOpenRolePopup(false);
+    setSelectedUserId('');
+  };
+
   const startIndex = page * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const displayedData = data.slice(startIndex, endIndex);
 
   const handleDeleteClick = (id) => {
-    console.log(`deleted user ${id}`);
     handleClickOpen(id);
   };
 
   const handleVerifyClick = (id) => {
-    console.log(`verify user ${id}`);
     handleVerifyDialogOpen(id);
+  };
+
+  const handleRoleClick = (id) => {
+    handleRolePopupOpen(id);
   };
 
   return (
@@ -129,7 +144,20 @@ const EmployeesTable = ({ data }) => {
                           <CheckIcon />
                         </IconButton>
                       </Tooltip>
-                    ) : null}
+                    ) : (
+                      <TableCell sx={customTableCell}>
+                        <Tooltip
+                          title="Update Role"
+                          placement="left"
+                          TransitionComponent={Fade}
+                          TransitionProps={{ timeout: 250 }}
+                        >
+                          <IconButton onClick={() => handleRoleClick(row._id)}>
+                            <AddModeratorIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
@@ -161,6 +189,7 @@ const EmployeesTable = ({ data }) => {
         close={handleVerifyDialogClose}
         id={selectedUserId}
       />
+      <RoleChangeDialog close={handleRolePopupClose} open={openRolePopup} id={selectedUserId} />
     </Grid>
   );
 };
