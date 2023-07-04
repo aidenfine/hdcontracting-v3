@@ -18,6 +18,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CheckIcon from '@mui/icons-material/Check';
 import CustomDialog from 'components/dialog/CustomDialog';
 import { dialogText } from './config';
+import VerifyDialog from 'components/dialog/confirmVerifyDialog/VerifyDialog';
+import { verifyUserText } from 'components/dialog/confirmVerifyDialog/config';
 
 const columns = [
   { field: 'name', headerName: 'Full name', width: 130 },
@@ -31,10 +33,21 @@ const EmployeesTable = ({ data }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [selectedUserId, setSelectedUserId] = React.useState('');
+  const [openVerifyDialog, setOpenVerifyDialog] = React.useState(false);
 
   const handleClickOpen = (id) => {
     setOpenDialog(true);
     setSelectedUserId(id);
+  };
+
+  const handleVerifyDialogOpen = (id) => {
+    setOpenVerifyDialog(true);
+    setSelectedUserId(id);
+  };
+
+  const handleVerifyDialogClose = () => {
+    setOpenVerifyDialog(false);
+    setSelectedUserId('');
   };
 
   const handleClose = () => {
@@ -62,6 +75,7 @@ const EmployeesTable = ({ data }) => {
 
   const handleVerifyClick = (id) => {
     console.log(`verify user ${id}`);
+    handleVerifyDialogOpen(id);
   };
 
   return (
@@ -138,6 +152,13 @@ const EmployeesTable = ({ data }) => {
         text={dialogText}
         open={openDialog}
         close={handleClose}
+        id={selectedUserId}
+      />
+      <VerifyDialog
+        title={'Verify User'}
+        text={verifyUserText}
+        open={openVerifyDialog}
+        close={handleVerifyDialogClose}
         id={selectedUserId}
       />
     </Grid>
