@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema(
         },
         role:{
             type: String,
-            enum: ["user", "admin"],
+            enum: ["user", "admin", "owner"],
             default: "user"
         },
         isVerifed:{
@@ -33,6 +33,6 @@ const UserSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-const User = mongoose.model("User", UserSchema)
+const User = mongoose.model("User", UserSchema, 'users')
 
 export default User;
