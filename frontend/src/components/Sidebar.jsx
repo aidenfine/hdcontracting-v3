@@ -51,10 +51,6 @@ const navItems = [
     icon: <ContactPageOutlined />,
   },
   {
-    text: 'Dashboard Users',
-    icon: <HowToRegOutlined />,
-  },
-  {
     text: 'Owner',
     icon: null,
   },
