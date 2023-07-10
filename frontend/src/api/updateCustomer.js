@@ -1,5 +1,5 @@
 ///api/customers/updateCustomer/:id"
-export const updateCustomer = async (customerId, updatedCustomerData) => {
+export const updateCustomer = async (customerId, updatedCustomerData, token) => {
   try {
     console.log(typeof customerId);
     const API_URL = process.env.REACT_APP_BASE_URL;
@@ -8,6 +8,7 @@ export const updateCustomer = async (customerId, updatedCustomerData) => {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(updatedCustomerData),
     });

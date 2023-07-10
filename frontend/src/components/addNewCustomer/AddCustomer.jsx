@@ -17,6 +17,8 @@ import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 const theme = createTheme();
 
 export default function AddCustomer() {
+  const token = localStorage.getItem('token');
+
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [showErrorSnackbar, setShowErrorSnackbar] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
@@ -68,6 +70,7 @@ export default function AddCustomer() {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           name,

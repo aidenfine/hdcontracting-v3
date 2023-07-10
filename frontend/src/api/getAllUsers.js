@@ -1,4 +1,4 @@
-const getAllUsers = () => {
+const getAllUsers = (token) => {
   const API_URL = process.env.REACT_APP_BASE_URL;
 
   return fetch(`${API_URL}/api/user/getUsers`, {
@@ -8,6 +8,7 @@ const getAllUsers = () => {
       'Content-Type': 'application/json',
       Accept: 'application/json',
       'Access-Control-Allow-Origin': '*',
+      Authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
 };

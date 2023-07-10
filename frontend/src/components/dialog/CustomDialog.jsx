@@ -5,7 +5,8 @@ import { removeUser } from 'api/removeUser';
 
 export default function CustomDialog({ title, open, close, text, id }) {
   const handleConfirm = () => {
-    removeUser(id);
+    const token = localStorage.getItem('token');
+    removeUser(id, token);
     window.location.reload();
   };
 

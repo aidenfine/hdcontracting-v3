@@ -4,6 +4,7 @@ import  jwt  from 'jsonwebtoken'
 
 export const loginUser = async (req, res) => {
   const JWT_SECRET = process.env.JWT_SECRET;
+  console.log(JWT_SECRET);
     
     const { email, password } = req.body;
     const user = await User.findOne({ email });

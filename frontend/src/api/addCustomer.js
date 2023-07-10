@@ -2,13 +2,14 @@
 
 const API_URL = process.env.REACT_APP_BASE_URL;
 
-export const addCustomer = async (customerData) => {
+export const addCustomer = async (customerData, token) => {
   try {
     const response = await fetch(`${API_URL}/api/customers/addCustomer`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(customerData),
     });
