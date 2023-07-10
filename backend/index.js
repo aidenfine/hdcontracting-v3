@@ -85,7 +85,7 @@ app.post("/api/userData", userData);
 app.get("/api/user/getUsers", getAllUsers);
 app.delete('/api/user/remove/:id', removeUser);
 app.put('/api/user/verify/:id', verifyUser);
-app.put('/api/user/changeRole/:id/:role', changeRole);
+app.put('/api/user/changeRole/:id/:role',verifyToken, changeRole);
 
 // --------------------------------------------------------
 

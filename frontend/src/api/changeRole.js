@@ -1,10 +1,11 @@
-export const changeRole = async (userId, role) => {
+export const changeRole = async (userId, role, token) => {
   const API_URL = process.env.REACT_APP_BASE_URL;
   const response = await fetch(`${API_URL}/api/user/changeRole/${userId}/${role}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
     },
   });
   const responseData = await response.json();
