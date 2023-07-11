@@ -21,7 +21,6 @@ import {
   PeopleAltOutlined,
   ReceiptOutlined,
   WorkOutlineOutlined,
-  HowToRegOutlined,
 } from '@mui/icons-material';
 
 const navItems = [

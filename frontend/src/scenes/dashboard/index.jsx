@@ -41,7 +41,7 @@ export const Dashboard = () => {
 
   return (
     <Box sx={{ margin: '30px' }}>
-      <Header title={'Welcome User'} />
+      <Header title={'Welcome Aiden!'} />
       <Grid container spacing={2} rowSpacing={4} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
           <Item onClick={handleGridItemClick} data-title="Jobs">

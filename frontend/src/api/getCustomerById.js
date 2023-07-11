@@ -1,4 +1,4 @@
-export const getCustomerById = async (customerId) => {
+export const getCustomerById = async (customerId, token) => {
   try {
     const API_URL = process.env.REACT_APP_BASE_URL;
 
@@ -8,6 +8,7 @@ export const getCustomerById = async (customerId) => {
         'Content-Type': 'application/json',
         Accept: 'application/json',
         'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`,
       },
     });
 
