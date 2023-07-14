@@ -21,8 +21,8 @@ import ErrorSnackbar from 'components/ErrorSnackbar';
 const theme = createTheme();
 
 export default function NewJob() {
+  const token = localStorage.getItem('token');
   const API_URL = process.env.REACT_APP_BASE_URL;
-  console.log(API_URL);
 
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [comp, setComp] = React.useState(false);
@@ -33,7 +33,7 @@ export default function NewJob() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await getAllUsers();
+        const response = await getAllUsers(token);
         const data = response.data;
         setUsers(data);
       } catch (error) {
@@ -41,7 +41,7 @@ export default function NewJob() {
       }
     };
     fetchUsers();
-  }, []);
+  }, [token]);
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
@@ -61,7 +61,6 @@ export default function NewJob() {
 
   const handleSubmit = async (event) => {
     const token = localStorage.getItem('token');
-    console.log(token);
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);

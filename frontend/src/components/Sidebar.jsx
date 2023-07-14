@@ -21,7 +21,6 @@ import {
   PeopleAltOutlined,
   ReceiptOutlined,
   WorkOutlineOutlined,
-  HowToRegOutlined,
 } from '@mui/icons-material';
 
 const navItems = [
@@ -47,20 +46,20 @@ const navItems = [
     icon: null,
   },
   {
-    text: 'Invoices',
-    icon: <ReceiptOutlined />,
-  },
-  {
     text: 'Customers',
     icon: <ContactPageOutlined />,
+  },
+  {
+    text: 'Owner',
+    icon: null,
   },
   {
     text: 'Employees',
     icon: <PeopleAltOutlined />,
   },
   {
-    text: 'Dashboard Users',
-    icon: <HowToRegOutlined />,
+    text: 'Invoices',
+    icon: <ReceiptOutlined />,
   },
 ];
 const Sidebar = ({ drawerWidth, isSidebarOpen, setIsSidebarOpen, isNonMobile }) => {

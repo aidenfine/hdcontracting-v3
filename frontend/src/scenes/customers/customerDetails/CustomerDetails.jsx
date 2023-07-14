@@ -8,6 +8,7 @@ import Loading from 'components/loadingPage/Loading';
 
 export function CustomerDetails() {
   const { id } = useParams();
+  const token = localStorage.getItem('token');
   const [loading, setLoading] = React.useState(true);
   const [customer, setCustomer] = React.useState(null);
   const [isEditing, setIsEditing] = React.useState(false);
@@ -18,7 +19,7 @@ export function CustomerDetails() {
   React.useEffect(() => {
     const fetchCustomerDetails = async () => {
       try {
-        const data = await getCustomerById(id);
+        const data = await getCustomerById(id, token);
         setCustomer(data);
         setLoading(false);
         // Initialize the editable fields with current customer data
@@ -32,7 +33,7 @@ export function CustomerDetails() {
     };
 
     fetchCustomerDetails();
-  }, [id]);
+  }, [id, token]);
 
   const handleEditCustomer = async () => {
     if (isEditing) {
@@ -47,7 +48,7 @@ export function CustomerDetails() {
         // Call the updateCustomer API function to update the customer
         console.log(id);
         console.log(typeof updateCustomer);
-        await updateCustomer(id, updatedCustomerData);
+        await updateCustomer(id, updatedCustomerData, token);
         console.log('Customer updated successfully');
         setIsEditing(false); // Exit editing mode
       } catch (error) {

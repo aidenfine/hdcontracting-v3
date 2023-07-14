@@ -7,6 +7,7 @@ import getAllCustomers from 'api/getAllCustomers';
 import Loading from 'components/loadingPage/Loading';
 
 export const CustomersMobile = () => {
+  const token = localStorage.getItem('token');
   const [customerData, setCustomerData] = useState([]);
   const [loading, setLoading] = useState(true);
   const maxNotesLength = 25; // Maximum number of characters for notes
@@ -14,7 +15,7 @@ export const CustomersMobile = () => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await getAllCustomers();
+        const response = await getAllCustomers(token);
         const data = response.data;
         setCustomerData(data);
         setLoading(false);
@@ -23,7 +24,7 @@ export const CustomersMobile = () => {
       }
     };
     fetchCustomers();
-  }, []);
+  }, [token]);
 
   const truncateNotes = (notes) => {
     if (notes.length > maxNotesLength) {

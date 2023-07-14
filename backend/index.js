@@ -21,6 +21,9 @@ import { addCustomer } from './apis/customers/addCustomer.js'
 import { getAllCustomers } from './apis/customers/getAllCustomers.js'
 import { getCustomerById } from './apis/customers/getCustomerById.js'
 import { updateCustomer } from './apis/customers/updateCustomer.js'
+import { removeUser } from './apis/userApis/removeUser.js'
+import { verifyUser } from './apis/userApis/verifyUser.js'
+import { changeRole } from './apis/userApis/changeRole.js'
 
 
 /* ------------------------------------------- */
@@ -51,7 +54,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // THIS VERIFY THE TOKEN
 const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization;
+  const token = req.headers.authorization.split(' ')[1];
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
@@ -77,28 +80,27 @@ app.post("/api/login", loginUser);
 
 // --------------------------------------------------------
 
-// USER DATA 
-app.post("/api/userData", userData);
-
-// --------------------------------------------------------
-
-// GET ALL USERS 
-app.get("/api/user/getUsers", getAllUsers);
+// USER APIS 
+app.post("/api/userData", verifyToken ,userData);
+app.get("/api/user/getUsers",verifyToken ,getAllUsers);
+app.delete('/api/user/remove/:id', verifyToken ,removeUser);
+app.put('/api/user/verify/:id', verifyToken ,verifyUser);
+app.put('/api/user/changeRole/:id/:role',verifyToken, changeRole);
 
 // --------------------------------------------------------
 
 // JOBS API
-app.post("/api/jobs/addJob", addNewJob);
+app.post("/api/jobs/addJob", verifyToken ,addNewJob);
 // app.put('/api/jobs/updateJob/:id', verifyToken, updateJob);
 // app.delete('/api/jobs/delete/:id', verifyToken, deleteJob)
 
 // --------------------------------------------------------
 
 // CUSTOMER APIS
-app.post("/api/customers/addCustomer", addCustomer);
-app.get("/api/customers/getCustomers", getAllCustomers);
-app.get("/api/customers/id/:id", getCustomerById);
-app.put("/api/customers/updateCustomer/:id", updateCustomer);
+app.post("/api/customers/addCustomer",verifyToken,addCustomer);
+app.get("/api/customers/getCustomers",verifyToken ,getAllCustomers);
+app.get("/api/customers/id/:id", verifyToken,getCustomerById);
+app.put("/api/customers/updateCustomer/:id",verifyToken ,updateCustomer);
 
 // --------------------------------------------------------
 

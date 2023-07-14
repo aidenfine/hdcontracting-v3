@@ -4,6 +4,7 @@ import  jwt  from 'jsonwebtoken'
 
 export const loginUser = async (req, res) => {
   const JWT_SECRET = process.env.JWT_SECRET;
+  console.log(JWT_SECRET);
     
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -17,7 +18,9 @@ export const loginUser = async (req, res) => {
   
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
-      const token = jwt.sign({}, JWT_SECRET);
+      const token = jwt.sign({}, JWT_SECRET,{
+        expiresIn: 3600, // 60 mins 
+      });
   
       if (res.status(201)) {
         return res.json({ status: "ok", data: token });

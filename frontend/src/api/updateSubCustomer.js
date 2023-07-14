@@ -1,4 +1,4 @@
-export const updateSubCustomer = async (customerId, subCustomerId, subCustomerData) => {
+export const updateSubCustomer = async (customerId, subCustomerId, subCustomerData, token) => {
   const API_URL = process.env.REACT_APP_BASE_URL;
   try {
     const response = await fetch(
@@ -8,6 +8,7 @@ export const updateSubCustomer = async (customerId, subCustomerId, subCustomerDa
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(subCustomerData),
       }

@@ -21,18 +21,24 @@ const UserSchema = new mongoose.Schema(
         },
         role:{
             type: String,
-            enum: ["user", "admin"],
+            enum: ["user", "admin", "owner"],
             default: "user"
         },
         isVerifed:{
             type: Boolean,
             required: true,
             default: false
+        },
+        firstLogin: {
+            type: Boolean,
+            required: true,
+            default: true,
+
         }
     },
     { timestamps: true }
 );
 
-const User = mongoose.model("User", UserSchema)
+const User = mongoose.model("User", UserSchema, 'users')
 
 export default User;

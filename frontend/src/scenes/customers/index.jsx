@@ -13,12 +13,13 @@ function addNewCustomerBtn() {
 }
 
 export const Customers = () => {
+  const token = localStorage.getItem('token');
   const [loading, setLoading] = React.useState(true);
   const [customerData, setCustomerData] = React.useState([]);
   React.useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await getAllCustomers();
+        const response = await getAllCustomers(token);
         const data = response.data;
         setCustomerData(data);
         setLoading(false);
@@ -27,7 +28,7 @@ export const Customers = () => {
       }
     };
     fetchCustomers();
-  }, []);
+  }, [token]);
 
   if (!isAuth()) {
     return <Navigate to="/" replace />;
