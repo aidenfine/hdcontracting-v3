@@ -81,7 +81,7 @@ app.post("/api/login", loginUser);
 // --------------------------------------------------------
 
 // USER APIS 
-app.post("/api/userData", userData);
+app.post("/api/user/userData", userData);
 app.get("/api/user/getUsers", getAllUsers);
 app.delete('/api/user/remove/:id', removeUser);
 app.put('/api/user/verify/:id', verifyUser);
