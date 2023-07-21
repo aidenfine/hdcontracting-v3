@@ -14,6 +14,7 @@ import AddJob from 'components/addNewJob/AddJob';
 import { Customers } from 'scenes/customers';
 import AddCustomer from 'components/addNewCustomer/AddCustomer';
 import { CustomerDetails } from 'scenes/customers/customerDetails/CustomerDetails';
+
 function App() {
   if (!window.localStorage.getItem('isLoggedIn')) {
     window.localStorage.setItem('isLoggedIn', 'false');
