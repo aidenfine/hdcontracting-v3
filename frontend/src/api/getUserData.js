@@ -1,4 +1,4 @@
-const getUserData = () => {
+const getUserData = (token) => {
   const API_URL = process.env.REACT_APP_BASE_URL;
   fetch(`${API_URL}/api/userData`, {
     method: 'POST',
@@ -7,6 +7,7 @@ const getUserData = () => {
       'Content-Type': 'application/json',
       Accept: 'application/json',
       'Access-Control-Allow-Origin': '*',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       token: window.localStorage.getItem('token'),

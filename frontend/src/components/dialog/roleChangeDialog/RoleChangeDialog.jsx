@@ -13,6 +13,7 @@ import { changeRole } from 'api/changeRole';
 import { useState } from 'react';
 
 export default function RoleChangeDialog({ close, open, id }) {
+  const token = localStorage.getItem('token');
   const roles = [
     { label: 'Admin', id: 'admin' },
     { label: 'User', id: 'user' },
@@ -24,8 +25,9 @@ export default function RoleChangeDialog({ close, open, id }) {
   const handleConfirm = () => {
     if (selectedRole) {
       const role = selectedRole.id;
-      changeRole(id, role);
+      changeRole(id, role, token);
       close(); // Close the dialog
+      window.location.reload();
     }
   };
 

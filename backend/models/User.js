@@ -28,6 +28,12 @@ const UserSchema = new mongoose.Schema(
             type: Boolean,
             required: true,
             default: false
+        },
+        firstLogin: {
+            type: Boolean,
+            required: true,
+            default: true,
+
         }
     },
     { timestamps: true }

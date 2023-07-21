@@ -21,7 +21,6 @@ import {
   PeopleAltOutlined,
   ReceiptOutlined,
   WorkOutlineOutlined,
-  HowToRegOutlined,
 } from '@mui/icons-material';
 
 const navItems = [
@@ -49,10 +48,6 @@ const navItems = [
   {
     text: 'Customers',
     icon: <ContactPageOutlined />,
-  },
-  {
-    text: 'Dashboard Users',
-    icon: <HowToRegOutlined />,
   },
   {
     text: 'Owner',

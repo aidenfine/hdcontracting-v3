@@ -9,12 +9,13 @@ import getAllUsers from 'api/getAllUsers';
 import EmployeesTable from 'components/employeesTable/EmployeesTable';
 
 export const Employees = () => {
+  const token = localStorage.getItem('token');
   const [loading, setLoading] = React.useState(true);
   const [userData, setUserData] = React.useState([]);
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await getAllUsers();
+        const response = await getAllUsers(token);
         const data = response.data;
         setUserData(data);
         setLoading(false);
@@ -23,7 +24,7 @@ export const Employees = () => {
       }
     };
     fetchUsers();
-  }, []);
+  }, [token]);
 
   if (!isAuth()) {
     return <Navigate to="/" replace />;

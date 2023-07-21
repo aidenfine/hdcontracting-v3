@@ -21,6 +21,7 @@ import ErrorSnackbar from 'components/ErrorSnackbar';
 const theme = createTheme();
 
 export default function NewJob() {
+  const token = localStorage.getItem('token');
   const API_URL = process.env.REACT_APP_BASE_URL;
 
   const [showSnackbar, setShowSnackbar] = React.useState(false);
@@ -32,7 +33,7 @@ export default function NewJob() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await getAllUsers();
+        const response = await getAllUsers(token);
         const data = response.data;
         setUsers(data);
       } catch (error) {
@@ -40,7 +41,7 @@ export default function NewJob() {
       }
     };
     fetchUsers();
-  }, []);
+  }, [token]);
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false);

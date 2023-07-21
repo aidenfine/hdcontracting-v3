@@ -5,13 +5,15 @@ import { verifyUser } from 'api/verifyUser';
 import SuccessSnackbar from 'components/SuccessSnackbar';
 
 export default function VerifyDialog({ title, open, close, text, id }) {
+  const token = localStorage.getItem('token');
   const [showSnackbar, setShowSnackbar] = React.useState(false);
 
   const handleConfirm = async () => {
     console.log(`Verify User ${id}`);
     setShowSnackbar(true);
-    await verifyUser(id);
+    await verifyUser(id, token);
     close();
+    window.location.reload();
   };
 
   const handleSnackbarClose = () => {

@@ -54,7 +54,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // THIS VERIFY THE TOKEN
 const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization;
+  const token = req.headers.authorization.split(' ')[1];
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
@@ -81,26 +81,26 @@ app.post("/api/login", loginUser);
 // --------------------------------------------------------
 
 // USER APIS 
-app.post("/api/user/userData", userData);
-app.get("/api/user/getUsers", getAllUsers);
-app.delete('/api/user/remove/:id', removeUser);
-app.put('/api/user/verify/:id', verifyUser);
-app.put('/api/user/changeRole/:id/:role', changeRole);
+app.post("/api/userData", verifyToken ,userData);
+app.get("/api/user/getUsers",verifyToken ,getAllUsers);
+app.delete('/api/user/remove/:id', verifyToken ,removeUser);
+app.put('/api/user/verify/:id', verifyToken ,verifyUser);
+app.put('/api/user/changeRole/:id/:role',verifyToken, changeRole);
 
 // --------------------------------------------------------
 
 // JOBS API
-app.post("/api/jobs/addJob", addNewJob);
+app.post("/api/jobs/addJob", verifyToken ,addNewJob);
 // app.put('/api/jobs/updateJob/:id', verifyToken, updateJob);
 // app.delete('/api/jobs/delete/:id', verifyToken, deleteJob)
 
 // --------------------------------------------------------
 
 // CUSTOMER APIS
-app.post("/api/customers/addCustomer", addCustomer);
-app.get("/api/customers/getCustomers", getAllCustomers);
-app.get("/api/customers/id/:id", getCustomerById);
-app.put("/api/customers/updateCustomer/:id", updateCustomer);
+app.post("/api/customers/addCustomer",verifyToken,addCustomer);
+app.get("/api/customers/getCustomers",verifyToken ,getAllCustomers);
+app.get("/api/customers/id/:id", verifyToken,getCustomerById);
+app.put("/api/customers/updateCustomer/:id",verifyToken ,updateCustomer);
 
 // --------------------------------------------------------
 
