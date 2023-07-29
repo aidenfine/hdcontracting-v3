@@ -12,12 +12,31 @@ import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import isAuth from 'state/isAuth';
 import { iconBox } from './style';
+// import getUserData from 'api/getUserData';
+// import { useState } from 'react';
+// import { useEffect } from 'react';
 
 export const Dashboard = () => {
+  // useEffect(() => {
+  //   getDataForPendo()
+
+  // },[])
+
+  // const [user, setUser] = useState([])
   const navigate = useNavigate();
   if (!isAuth()) {
     return <Navigate to="/" replace />;
   }
+
+  // async function getDataForPendo(){
+  //   const API_URL = process.env.REACT_APP_BASE_URL;
+  //   const token = window.localStorage.getItem('token');
+
+  //   const data = await getUserData(token);
+  //   setUser(data)
+  // }
+
+  // console.log(user);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#FFFFF' : '#FFFFF', // background color

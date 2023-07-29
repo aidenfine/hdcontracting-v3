@@ -25,6 +25,7 @@ import { removeUser } from './apis/userApis/removeUser.js'
 import { verifyUser } from './apis/userApis/verifyUser.js'
 import { changeRole } from './apis/userApis/changeRole.js'
 import { getAllJobs } from './apis/jobsApis/getJobs.js'
+import { getUserById } from './apis/userApis/getUserById.js'
 
 
 /* ------------------------------------------- */
@@ -41,7 +42,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.set("view engine","ejs");
-app.use(express.urlencoded( {extended: false } ))
 
 // ENV VARS 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -82,7 +82,8 @@ app.post("/api/login", loginUser);
 // --------------------------------------------------------
 
 // USER APIS 
-app.post("/api/userData", verifyToken ,userData);
+app.get("/api/userData", verifyToken ,userData);
+app.get("/api/user/getUser/:id", verifyToken, getUserById)
 app.get("/api/user/getUsers",verifyToken ,getAllUsers);
 app.delete('/api/user/remove/:id', verifyToken ,removeUser);
 app.put('/api/user/verify/:id', verifyToken ,verifyUser);
