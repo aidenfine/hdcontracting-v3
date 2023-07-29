@@ -1,8 +1,10 @@
-// export const getJobs = async(req, res) => {
-//     try {
-//         const 
+import Jobs from "../../models/Jobs.js";
 
-//     } catch (error) {
-
-//     }
-// }
+export const getAllJobs = async(req, res) => {
+    try{
+        const getJobs = await Jobs.find({});
+        res.send({ data :getJobs })
+    } catch (error){
+        console.log(error)
+    }
+}

@@ -24,6 +24,7 @@ import { updateCustomer } from './apis/customers/updateCustomer.js'
 import { removeUser } from './apis/userApis/removeUser.js'
 import { verifyUser } from './apis/userApis/verifyUser.js'
 import { changeRole } from './apis/userApis/changeRole.js'
+import { getAllJobs } from './apis/jobsApis/getJobs.js'
 
 
 /* ------------------------------------------- */
@@ -91,6 +92,7 @@ app.put('/api/user/changeRole/:id/:role',verifyToken, changeRole);
 
 // JOBS API
 app.post("/api/jobs/addJob", verifyToken ,addNewJob);
+app.get("/api/jobs/getJobs", verifyToken, getAllJobs)
 // app.put('/api/jobs/updateJob/:id', verifyToken, updateJob);
 // app.delete('/api/jobs/delete/:id', verifyToken, deleteJob)
 
