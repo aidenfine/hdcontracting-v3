@@ -8,6 +8,7 @@ export const addCustomer = async (customerData, token) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
       },

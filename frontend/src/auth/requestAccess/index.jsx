@@ -8,12 +8,11 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockClockIcon from '@mui/icons-material/LockClock';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SuccessSnackbar from 'components/SuccessSnackbar';
-
 const theme = createTheme();
 
 export default function RequestAccess() {
@@ -40,6 +39,7 @@ export default function RequestAccess() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
           Accept: 'application/json',
         },
         body: JSON.stringify({
@@ -80,8 +80,8 @@ export default function RequestAccess() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+          <Avatar sx={{ m: 1, bgcolor: '#ff1744' }}>
+            <LockClockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Request Access
