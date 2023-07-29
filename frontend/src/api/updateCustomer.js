@@ -8,6 +8,7 @@ export const updateCustomer = async (customerId, updatedCustomerData, token) => 
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(updatedCustomerData),

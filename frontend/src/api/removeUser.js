@@ -5,6 +5,7 @@ export const removeUser = async (userId, token) => {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
       Authorization: `Bearer ${token}`,
     },
   });

@@ -15,7 +15,6 @@ import SuccessSnackbar from 'components/SuccessSnackbar';
 import { Navigate } from 'react-router-dom';
 import InfoSnackbar from 'components/InfoSnackbar';
 
-
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -31,7 +30,6 @@ function Copyright(props) {
 
 const theme = createTheme();
 export default function Login() {
-
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
 
@@ -61,6 +59,7 @@ export default function Login() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
         Accept: 'application/json',
       },
       body: JSON.stringify({
@@ -71,7 +70,7 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 'ok') {
-          console.log(data.data)
+          console.log(data.data);
           setSuccessSnackbarOpen(true);
           setSuccessSnackbarMessage('Success!');
           window.localStorage.setItem('token', data.data);
