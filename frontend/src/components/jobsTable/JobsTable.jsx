@@ -1,39 +1,66 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import getAllJobs from 'api/getAllJobs';
+import { useEffect } from 'react';
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+  { field: 'jobNumber', headerName: 'Job #', width: 115 },
+  { field: 'comp', headerName: 'Comp?', width: 130 },
+  { field: 'invoiceNumber', headerName: 'Invoice Number', type: 'number', width: 130 },
   {
-    field: 'age',
-    headerName: 'Age',
+    field: 'estNumber',
+    headerName: 'Estimate',
     type: 'number',
-    width: 90,
+    width: 120,
   },
   {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    field: 'assignedTo',
+    headerName: 'Assigned To',
+    sortable: true,
+    width: 250,
   },
-];
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  {
+    field: 'description',
+    headerName: 'description',
+    width: 250,
+    sortable: false,
+  },
+  {
+    field: 'complete',
+    headerName: 'Complete?',
+    width: 150,
+  },
 ];
 
 export default function JobsTable() {
+  const token = localStorage.getItem('token');
+
+  const [rows, setRows] = React.useState([]);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await getAllJobs(token);
+        const data = response.data;
+        const formatData = data.map((job) => ({
+          jobNumber: job.jobNumber,
+          comp: job.comp,
+          estNumber: job.estNumber,
+          invoiceNumber: job.invoiceNumber,
+          assignedTo: job.assignedTo,
+          description: job.description,
+          complete: 'false',
+          id: job._id,
+        }));
+        setRows(formatData);
+        // setLoading(false);
+      } catch (error) {
+        console.error('error', error);
+      }
+    };
+    fetchJobs();
+  }, [token]);
+
   return (
     <div style={{ height: 400, width: '80%' }}>
       <DataGrid
