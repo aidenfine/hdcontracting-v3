@@ -1,7 +1,7 @@
 import React from 'react';
 import Lottie from 'lottie-react';
 import Error from '../../assets/error.json';
-import { wrapper } from './style';
+import { text, wrapper } from './style';
 
 export const PageNotFound = () => {
   const options = {
@@ -11,8 +11,11 @@ export const PageNotFound = () => {
   };
 
   return (
-    <div style={wrapper}>
-      <Lottie animationData={Error} LottieOptions={options} />
+    <div>
+      <div style={wrapper}>
+        <Lottie animationData={Error} LottieOptions={options} />
+        <div style={text}>This page does not exist</div>
+      </div>
     </div>
   );
 };

@@ -5,3 +5,7 @@ export const wrapper = {
   justifyContent: 'center',
   height: '100vh',
 };
+
+export const text = {
+  fontSize: '25px',
+};
