@@ -14,6 +14,7 @@ import AddJob from 'components/addNewJob/AddJob';
 import { Customers } from 'scenes/customers';
 import AddCustomer from 'components/addNewCustomer/AddCustomer';
 import { CustomerDetails } from 'scenes/customers/customerDetails/CustomerDetails';
+import { PageNotFound } from 'scenes/pageNotFound/PageNotFound';
 
 function App() {
   if (!window.localStorage.getItem('isLoggedIn')) {
@@ -38,6 +39,7 @@ function App() {
               <Route path="/customers" element={<Customers />} />
               <Route path="/customers/addNewCustomer" element={<AddCustomer />} />
               <Route path="/customers/details/:id" element={<CustomerDetails />} />
+              <Route path="*" element={<PageNotFound />} />
             </Route>
           </Routes>
         </ThemeProvider>
